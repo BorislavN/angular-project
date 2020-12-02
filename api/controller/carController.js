@@ -95,4 +95,4 @@ module.exports = {
     addCar,
     editCar,
     deleteCar
-}
+};
