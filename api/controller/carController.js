@@ -25,7 +25,7 @@ function getCar(req, res, next) {
             res.status(200).json(car);
         })
         .catch(next);
-};implementing
+};
 
 function addCar(req, res, next) {
 

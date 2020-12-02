@@ -1,10 +1,12 @@
 global.__basedir = __dirname;
 require('dotenv').config()
 
+const { errorHandler, cloudinaryHelper } = require('./util');
 const mongoConnector = require('./config/mongo');
-const { errorHandler } = require('./util');
 //const apiRouter = require('./router');
 const cors = require('cors');
+
+cloudinaryHelper.checkTempDir();//Creates temp dir if it doesn't exist.
 
 mongoConnector()
     .then(() => {
