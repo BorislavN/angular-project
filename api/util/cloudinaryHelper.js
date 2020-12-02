@@ -57,7 +57,18 @@ function parseFormMiddleware(req, res, next) {
     })
 };
 
+function deleteOldCloudinaryPictures(arr) {
+    arr.forEach((picture) => {
+        cloud.uploader.destroy(picture.id, function (result, err) {
+            if (err) {
+                console.log(`An error occurred while trying to delete a picture form cloudinary - Error: ${err}`);
+            }
+        });
+    });
+}
+
 module.exports = {
     checkTempDir,
-    parseFormMiddleware
+    parseFormMiddleware,
+    deleteOldCloudinaryPictures
 }

@@ -32,7 +32,7 @@ function loginUser(req, res, next) {
             } else {
                 res.cookie(cookieName, token, { httpOnly: true });
             }
-            res.status(202).send({ message: `User: ${username} logged in successfully!` });
+            res.status(202).send({ "message": `User: ${username} logged in successfully!` });
         })
         .catch(next);
 };
@@ -44,7 +44,7 @@ function logoutUser(req, res, next) {
         .then(() => {
             res.clearCookie(cookieName)
                 .status(200)
-                .send({ message: 'User logged out successfully!' });
+                .send({ "message": 'User logged out successfully!' });
         })
         .catch(next);
 };
@@ -68,7 +68,7 @@ function editUserProfile(req, res, next) {
     userModel.findOneAndUpdate({ _id: userId }, { balance, username, email }, { runValidators: true, new: true })
         .then((updated) => {
             res.status(200)
-                .send({ message: `Values updated successfully - username=${updated.username} email=${updated.email} balance=${updated.balance}` });
+                .send({ "message": `Values updated successfully - username=${updated.username} email=${updated.email} balance=${updated.balance}` });
         })
         .catch(next);
 };
