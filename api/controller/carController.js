@@ -90,6 +90,3 @@ module.exports = {
     editCar,
     deleteCar
 }
-
-
-"Finished implementing carController hopefully ;D"
