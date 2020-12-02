@@ -1,4 +1,4 @@
-const { carModel } = require("../model");
+const { carModel, userModel } = require("../model");
 const { cloudinaryHelper } = require("../util");
 
 function getMyCars(req, res, next) {
@@ -48,7 +48,13 @@ function editCar(req, res, next) {
             if (car && (req.user.userId === car.ownerId)) {
                 const { ownerId, pictures, ...otherFields } = req.body;
 
-                if (ownerId) { Object.assign(otherFields, { ownerId }); }
+                if (ownerId) {
+                    if (await userModel.exists({ _id: ownerId })) {//Checks if the new owner actually exist...
+                        Object.assign(otherFields, { ownerId });
+                    } else {
+                        throw new Error(`User with _id: ${ownerId} doesn't exist!`)
+                    }
+                }
 
                 if (pictures && (pictures.length > 0)) {
                     Object.assign(otherFields, { pictures });
@@ -61,7 +67,7 @@ function editCar(req, res, next) {
         })
         .then((updatedCar) => {
             res.status(200)
-                .send({ "message": `Car (make: ${updatedCar.make}, year: ${updatedCar.year}, miles: ${updatedCar.miles}) updated successfully!` });
+                .send({ "message": `Car(make: ${updatedCar.make}, year: ${updatedCar.year}, miles: ${updatedCar.miles}) updated successfully!` });
         })
         .catch(next);
 };
