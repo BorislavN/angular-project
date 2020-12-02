@@ -1,7 +1,9 @@
-const errorHandler= require("./globalErrorHandler");
-const jwtHelper= require("./jwtHelper");
+const errorHandler = require("./globalErrorHandler");
+const cloudinaryHelper = require("./cloudinaryHelper");
+const jwtHelper = require("./jwtHelper");
 
-module.exports={
+module.exports = {
     errorHandler,
-    jwtHelper
+    jwtHelper,
+    cloudinaryHelper
 }

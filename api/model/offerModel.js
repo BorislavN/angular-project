@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const commentModel = require("./commentModel");
 const { ObjectId } = mongoose.Schema.Types;
 
 const offerSchema = new mongoose.Schema({
@@ -22,5 +23,14 @@ const offerSchema = new mongoose.Schema({
         default: ""
     }
 }, { timestamps: { createdAt: 'created_at' } });
+
+offerSchema.pre("deleteOne", { document: true, query: false }, function (next) {
+    commentModel.deleteMany({ offerId: this._id }, (err) => {
+        if (err) {
+            next(err);
+        }
+    });
+    next();
+});
 
 module.exports = mongoose.model("Offer", offerSchema);
