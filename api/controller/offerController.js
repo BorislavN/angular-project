@@ -37,9 +37,8 @@ function getOffer(req, res, next) {
         .then(offerDetails => {
             if (offerDetails) {
                 res.status(200).json(offerDetails);
-            } else {
-                res.status(404).json({ "message": `Offer with id: ${offerId} not found!` })
             }
+            throw new Error(`404${__delimiter}Offer with id: ${offerId} not found!`);
         })
         .catch(next);
 };
@@ -56,10 +55,8 @@ function addOffer(req, res, next) {
                 return Promise
                     .all([car.save(), offerModel
                         .create({ authorId: userId, carId, price, description })]);
-            } else {
-                res.status(403)
-                    .json({ "message": "Car with that id does not exist or you are not the owner of it!" });
             }
+            throw new Error(`403${__delimiter}Car with that id does not exist or you are not the owner of it!`);
         })
         .then(([_, offer]) => {
             res.status(201)
@@ -77,9 +74,8 @@ function editOffer(req, res, next) {
         .then(result => {
             if (result) {
                 res.status(200).json({ "message": `Offer with id: ${offerId} updated successfully!` });
-            } else {
-                res.status(404).json({ "message": "Offer with that id does not exist or you don't own the rights to it!" });
             }
+            throw new Error(`404${__delimiter}Offer with that id does not exist or you don't own the rights to it!`);
         })
         .catch(next);
 };
@@ -91,13 +87,12 @@ function deleteOffer(req, res, next) {
     Promise.all([carModel.findById(carId), offerModel.deleteOne({ _id: offerId, authorId: userId, carId })])
         .then(([car, deleteResult]) => {
             if (deleteResult.deletedCount === 0) {
-                res.status(404).json({ "message": "Such offer does not exist or you don't own the rights to it!" });
-            } else {
-                car.forSale = false;
-                car.save();
-
-                res.status(200).json({ "message": `${deleteResult.deletedCount} entry removed successfully!` });
+                throw new Error(`404${__delimiter}Such offer does not exist or you don't own the rights to it!`);
             }
+            car.forSale = false;
+            car.save();
+
+            res.status(200).json({ "message": `${deleteResult.deletedCount} entry removed successfully!` });
         })
         .catch(next);
 };

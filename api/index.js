@@ -1,4 +1,5 @@
 global.__basedir = __dirname;
+global.__delimiter = "delimiter";
 require('dotenv').config()
 
 const { errorHandler, cloudinaryHelper } = require('./util');

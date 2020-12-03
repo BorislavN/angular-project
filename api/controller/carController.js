@@ -52,9 +52,8 @@ function editCar(req, res, next) {
                 if (ownerId) {
                     if (await userModel.exists({ _id: ownerId })) {//Checks if the new owner actually exist...
                         Object.assign(otherFields, { ownerId });
-                    } else {
-                        throw new Error(`User with _id: ${ownerId} doesn't exist!`)
                     }
+                    throw new Error(`404${__delimiter}User with _id: ${ownerId} doesn't exist!`);
                 }
 
                 if (pictures && (pictures.length > 0)) {
@@ -63,9 +62,8 @@ function editCar(req, res, next) {
                 }
 
                 return Promise.all([carModel.findByIdAndUpdate(carId, { ...otherFields }, { new: true })]);
-            } else {
-                res.status(404).json({ "message": "Car with that id doesn't exist or you don't have permission to modify it!" })
             }
+            throw new Error(`404${__delimiter}Car with that id doesn't exist or you don't have permission to modify it!`);
         })
         .then(([updatedCar]) => {
             res.status(200)
@@ -82,7 +80,7 @@ function deleteCar(req, res, next) {
             if (car && (req.user.userId === car.ownerId)) {
                 return Promise.all([carModel.findByIdAndDelete(carId)]);
             }
-            throw new Error("Car with that id doesn't exist or you don't have permission to modify it!")
+            throw new Error(`404${__delimiter}Car with that id doesn't exist or you don't have permission to modify it!`)
         })
         .then(([removedCar]) => {
             res.status(200).send({ "message": "Car deleted successfully!" })
