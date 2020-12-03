@@ -4,7 +4,7 @@ require('dotenv').config()
 
 const { errorHandler, cloudinaryHelper } = require('./util');
 const mongoConnector = require('./config/mongo');
-//const apiRouter = require('./router');
+const {apiRouter,authRouter} = require('./router');
 const cors = require('cors');
 
 cloudinaryHelper.checkTempDir();//Creates temp dir if it doesn't exist.
@@ -20,8 +20,8 @@ mongoConnector()
             credentials: true
         }));
 
-        //app.use('/api', apiRouter);
-
+        app.use('/api', apiRouter);
+        app.use('/auth', authRouter);
         app.use(errorHandler);
 
         app.listen(config.port, console.log(`API listening on http://localhost:${config.port}/!`));
