@@ -65,7 +65,7 @@ function editCar(req, res, next) {
             }
             throw new Error("Car with that id doesn't exist or you don't have permission to modify it!")
         })
-        .then((updatedCar) => {
+        .then(([updatedCar]) => {
             res.status(200)
                 .send({ "message": `Car(make: ${updatedCar.make}, year: ${updatedCar.year}, miles: ${updatedCar.miles}) updated successfully!` });
         })
@@ -82,7 +82,7 @@ function deleteCar(req, res, next) {
             }
             throw new Error("Car with that id doesn't exist or you don't have permission to modify it!")
         })
-        .then((removedCar) => {
+        .then(([removedCar]) => {
             res.status(200).send({ "message": "Car deleted successfully!" })
             cloudinaryHelper.deleteOldCloudinaryPictures(removedCar.pictures);
         })
