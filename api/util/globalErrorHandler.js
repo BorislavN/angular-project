@@ -1,6 +1,6 @@
 function globalErrorHandler(err, req, res, next) {
    const tokens = err.message.split(__delimiter);
-   const badMessage = "Message something went wrong on the server or in the database. Check the server for more information.";
+   const badMessage = "Something went wrong on the server or in the database. Check the server for more information.";
 
    if (tokens.length >= 2) {
       res.status(+tokens[0]).json({ "message": tokens[1] });
