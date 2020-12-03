@@ -1,3 +1,4 @@
+const e = require("express");
 const { carModel, userModel } = require("../model");
 const { cloudinaryHelper } = require("../util");
 
@@ -62,8 +63,9 @@ function editCar(req, res, next) {
                 }
 
                 return Promise.all([carModel.findByIdAndUpdate(carId, { ...otherFields }, { new: true })]);
+            } else {
+                res.status(404).json({ "message": "Car with that id doesn't exist or you don't have permission to modify it!" })
             }
-            throw new Error("Car with that id doesn't exist or you don't have permission to modify it!")
         })
         .then(([updatedCar]) => {
             res.status(200)

@@ -37,8 +37,9 @@ function getOffer(req, res, next) {
         .then(offerDetails => {
             if (offerDetails) {
                 res.status(200).json(offerDetails);
+            } else {
+                res.status(404).json({ "message": `Offer with id: ${offerId} not found!` })
             }
-            res.status(404).json({ "message": `Offer with id: ${offerId} not found!` })
         })
         .catch(next);
 };
@@ -50,23 +51,55 @@ function addOffer(req, res, next) {
     carModel.findOne({ carId, authorId: userId })
         .then(car => {
             if (car) {
-                return Promise.all([offerModel.create({ authorId: userId, carId, price, description })]);
+                car.forSale = true;
+
+                return Promise
+                    .all([car.save(), offerModel
+                        .create({ authorId: userId, carId, price, description })]);
             } else {
-                res.status(403).json({ "message": "Car with that id does not exist or you are not the owner of it!" });
+                res.status(403)
+                    .json({ "message": "Car with that id does not exist or you are not the owner of it!" });
             }
         })
-        .then(([offer]) => {
-            res.status(201).json({ "message": `New offer added  carId: ${offer.carId} authorId:${offer.authorId}!` })
+        .then(([_, offer]) => {
+            res.status(201)
+                .json({ "message": `New offer added  carId: ${offer.carId} authorId:${offer.authorId}!` });
         })
         .catch(next);
 };
 
 function editOffer(req, res, next) {
+    const { description, price } = req.body;
+    const { offerId } = req.params;
+    const { userId } = req.user;
 
+    offerModel.findOneAndUpdate({ _id: offerId, authorId: userId }, { description, price })
+        .then(result => {
+            if (result) {
+                res.status(200).json({ "message": `Offer with id: ${offerId} updated successfully!` });
+            } else {
+                res.status(404).json({ "message": "Offer with that id does not exist or you don't own the rights to it!" });
+            }
+        })
+        .catch(next);
 };
 
 function deleteOffer(req, res, next) {
+    const { userId } = req.user;
+    const { offerId, carId } = req.params;
 
+    Promise.all([carModel.findById(carId), offerModel.deleteOne({ _id: offerId, authorId: userId, carId })])
+        .then(([car, deleteResult]) => {
+            if (deleteResult.deletedCount === 0) {
+                res.status(404).json({ "message": "Such offer does not exist or you don't own the rights to it!" });
+            } else {
+                car.forSale = false;
+                car.save();
+
+                res.status(200).json({ "message": `${deleteResult.deletedCount} entry removed successfully!` });
+            }
+        })
+        .catch(next);
 };
 
 module.exports = {

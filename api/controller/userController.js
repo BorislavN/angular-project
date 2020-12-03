@@ -23,16 +23,17 @@ function loginUser(req, res, next) {
         })
         .then(([user, passMatch]) => {
             if (!passMatch) {
-                throw new Error("Invalid username or password!");
-            }
-            const token = jwtHelper.createToken({ id: user._id });
-
-            if (process.env.MY_NODE_ENV === 'production') {
-                res.cookie(cookieName, token, { httpOnly: true, sameSite: 'none', secure: true });
+                res.status(401).json({ "message": "Invalid username or password!" });
             } else {
-                res.cookie(cookieName, token, { httpOnly: true });
+                const token = jwtHelper.createToken({ id: user._id });
+
+                if (process.env.MY_NODE_ENV === 'production') {
+                    res.cookie(cookieName, token, { httpOnly: true, sameSite: 'none', secure: true });
+                } else {
+                    res.cookie(cookieName, token, { httpOnly: true });
+                }
+                res.status(202).send({ "message": `User: ${username} logged in successfully!` });
             }
-            res.status(202).send({ "message": `User: ${username} logged in successfully!` });
         })
         .catch(next);
 };
