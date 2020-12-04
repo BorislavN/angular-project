@@ -1,7 +1,7 @@
 const usersRouter = require("express").Router();
 
 const { authUser, checkForErrors, cloudinaryHelper } = require("../util");
-const { carValidation, carPictureValidation } = require("../validation");
+const { carValidation } = require("../validation");
 const { carController, offerController } = require("../controller");
 
 usersRouter.get("/offers",
@@ -15,7 +15,7 @@ usersRouter.get("/collection",
 usersRouter.post("/collection",
     authUser(),
     cloudinaryHelper.parseFormMiddleware,
-    [carPictureValidation, ...carValidation],
+    carValidation.add,
     checkForErrors, carController.addCar);//add a car //AUTH// //DONE
 
 usersRouter.get("/collection/:carId",
@@ -25,7 +25,7 @@ usersRouter.get("/collection/:carId",
 usersRouter.put("/collection/:carId",
     authUser(),
     cloudinaryHelper.parseFormMiddleware,
-    carValidation, checkForErrors,
+    carValidation.edit, checkForErrors,
     carController.editCar);//edit car //AUTH// //TODO
 
 usersRouter.delete("/collection/:carId",

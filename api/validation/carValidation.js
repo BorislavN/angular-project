@@ -28,4 +28,11 @@ const transmissionValidation = body("transmission")
     .isIn(["Manual", "Automatic"])
     .withMessage("Car transmission type is invalid!");
 
-module.exports = [makeValidation, modelValidation, yearValidation, milesValidation, powertrainValidation, transmissionValidation];
+const picturesValidation = body("pictures")
+    .isArray({ min: 1, max: 3 })
+    .withMessage("You need to add between 1 and 3 pictures of your car!");
+
+module.exports = {
+    "add": [makeValidation, modelValidation, yearValidation, milesValidation, powertrainValidation, transmissionValidation, picturesValidation],
+    "edit": [makeValidation, modelValidation, yearValidation, milesValidation, powertrainValidation, transmissionValidation]
+}
