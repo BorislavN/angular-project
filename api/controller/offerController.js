@@ -81,8 +81,9 @@ function editOffer(req, res, next) {
 };
 
 function deleteOffer(req, res, next) {
+    const carId = req.query.carId | "";
     const { userId } = req.user;
-    const { offerId, carId } = req.params;
+    const { offerId } = req.params;
 
     Promise.all([carModel.findById(carId), offerModel.deleteOne({ _id: offerId, authorId: userId, carId })])
         .then(([car, deleteResult]) => {
