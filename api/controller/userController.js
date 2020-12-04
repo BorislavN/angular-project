@@ -25,7 +25,7 @@ function loginUser(req, res, next) {
             if (!passMatch) {
                 throw new Error(`401${__delimiter}Invalid username or password!`);
             }
-            const token = jwtHelper.createToken({ id: user._id });
+            const token = jwtHelper.createToken({ userId: user._id });
 
             if (process.env.MY_NODE_ENV === 'production') {
                 res.cookie(cookieName, token, { httpOnly: true, sameSite: 'none', secure: true });
