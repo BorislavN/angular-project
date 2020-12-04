@@ -81,7 +81,7 @@ function editOffer(req, res, next) {
 };
 
 function deleteOffer(req, res, next) {
-    const carId = req.query.carId | "";
+    const carId = req.query.carId || "";
     const { userId } = req.user;
     const { offerId } = req.params;
 
