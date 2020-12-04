@@ -1,11 +1,35 @@
 const usersRouter = require("express").Router();
-const { authUser } = require("../util");
 
-usersRouter.get("/offers", authUser(), console.log);//my offers //AUTH//
-usersRouter.get("/collection", authUser(), console.log);//my cars //AUTH//
-usersRouter.post("/collection", authUser(), console.log);//add a car //AUTH//
-usersRouter.get("/collection/:carId", authUser(), console.log);//car details //AUTH//
-usersRouter.put("/collection/:carId", authUser(), console.log);//edit car //AUTH//
-usersRouter.delete("/collection/:carId", authUser(), console.log);//delete car //AUTH//
+const { authUser, checkForErrors, cloudinaryHelper } = require("../util");
+const { carValidation, carPictureValidation } = require("../validation");
+const { carController, offerController } = require("../controller");
+
+usersRouter.get("/offers",
+    authUser(),
+    offerController.getMyOffers);//my offers //AUTH// //DONE
+
+usersRouter.get("/collection",
+    authUser(),
+    carController.getMyCars);//my cars //AUTH// //DONE
+
+usersRouter.post("/collection",
+    authUser(),
+    cloudinaryHelper.parseFormMiddleware,
+    [carPictureValidation, ...carValidation],
+    checkForErrors, carController.addCar);//add a car //AUTH// //DONE
+
+usersRouter.get("/collection/:carId",
+    authUser(),
+    carController.getCar);//car details //AUTH// //DONE
+
+usersRouter.put("/collection/:carId",
+    authUser(),
+    cloudinaryHelper.parseFormMiddleware,
+    carValidation, checkForErrors,
+    carController.editCar);//edit car //AUTH// //TODO
+
+usersRouter.delete("/collection/:carId",
+    authUser(),
+    carController.deleteCar);//delete car //AUTH// //DONE
 
 module.exports = usersRouter;
