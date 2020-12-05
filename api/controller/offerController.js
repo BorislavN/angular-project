@@ -1,14 +1,26 @@
 const { offerModel, carModel, userModel } = require("../model");
 
 function getAllOffers(req, res, next) {
-    offerModel.find()
-        .populate("carId")
-        .populate({
-            path: "authorId",
-            select: "username"
+    const page = req.query.page || 1;
+    let skipCount = (+page - 1) * 10;
+
+    offerModel.countDocuments()
+        .then(value => {
+            if (skipCount < 0 || value < skipCount) {
+                skipCount = 0;
+            }
+            return Promise.all([Promise.resolve(value), offerModel.find()
+                .sort({ createdAt: -1 })
+                .skip(skipCount)
+                .limit(10)
+                .populate("carId")
+                .populate({
+                    path: "authorId",
+                    select: "username"
+                })]);
         })
-        .then(offers => {
-            res.status(200).json(offers);
+        .then(([count, offers]) => {
+            res.status(200).json({ offers, maxPages: Math.ceil((count / 10)) });
         })
         .catch(next);
 };
@@ -108,10 +120,10 @@ function buyCarFromOffer(req, res, next) {
                     throw new Error(`400${__delimiter}You can't buy your own car!`);
                 }
                 return Promise.all([userModel.findById(userId),
-                                    userModel.findById(offer.authorId),
-                                    carModel.findById(offer.carId),
-                                    Promise.resolve(offer.price),
-                                    Promise.resolve(offer._id)]);
+                userModel.findById(offer.authorId),
+                carModel.findById(offer.carId),
+                Promise.resolve(offer.price),
+                Promise.resolve(offer._id)]);
             }
             throw new Error(`404${__delimiter}Such offer does not exist!`);
         })
@@ -125,13 +137,13 @@ function buyCarFromOffer(req, res, next) {
                 car.ownerId = curr._id;
 
                 return Promise.all([curr.save(),
-                                    owner.save(),
-                                    car.save(),
-                                    offerModel.deleteOne({ _id: id })]);
+                owner.save(),
+                car.save(),
+                offerModel.deleteOne({ _id: id })]);
             }
             throw new Error(`400${__delimiter}Your funds are not sufficient to buy this car!`);
         })
-        .then(([_, _, _, removed]) => {
+        .then(([_c, _o, _v, removed]) => {
             if (removed.deletedCount === 1) {
                 res.status(200).json({ "message": "Car purchased successfully!" })
             }
