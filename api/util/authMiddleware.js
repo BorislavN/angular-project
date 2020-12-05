@@ -16,7 +16,7 @@ function authUser() {
                 }
                 userModel.findById(payload.userId)
                     .then(user => {
-                        req.user = { "userId": user._id, "username": user.username, "email": user.email };
+                        req.user = { "userId": user._id, "username": user.username };
                         next();
                     });
             })

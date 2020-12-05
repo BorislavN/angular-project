@@ -43,27 +43,20 @@ function addCar(req, res, next) {
 
 function editCar(req, res, next) {
     const { carId } = req.params;
+    const { userId } = req.user;
 
-    carModel.findById(carId)
+    const { pictures, ...otherFields } = req.body;
+
+    carModel.findOne({ _id: carId, ownerId: userId })
         .then((car) => {
-            if (car && (req.user.userId === car.ownerId)) {
-                const { ownerId, pictures, ...otherFields } = req.body;
-
-                if (ownerId) {
-                    if (await userModel.exists({ _id: ownerId })) {//Checks if the new owner actually exist...
-                        Object.assign(otherFields, { ownerId });
-                    }
-                    throw new Error(`404${__delimiter}User with _id: ${ownerId} doesn't exist!`);
-                }
-
+            if (car) {
                 if (pictures && (pictures.length > 0)) {
                     Object.assign(otherFields, { pictures });
                     cloudinaryHelper.deleteOldCloudinaryPictures(car.pictures);
                 }
-
                 return Promise.all([carModel.findByIdAndUpdate(carId, { ...otherFields }, { new: true })]);
             }
-            throw new Error(`404${__delimiter}Car with that id doesn't exist or you don't have permission to modify it!`);
+            throw new Error(`404${__delimiter}Car with that id doesn't exist or you don't have permission to modify it!`)
         })
         .then(([updatedCar]) => {
             res.status(200)
@@ -74,13 +67,17 @@ function editCar(req, res, next) {
 
 function deleteCar(req, res, next) {
     const { carId } = req.params;
+    const { userId } = req.user;
 
-    carModel.findById(carId)
+    carModel.findOne({ _id: carId, ownerId: userId })
         .then((car) => {
-            if (car && (req.user.userId === car.ownerId)) {
-                return Promise.all([carModel.findByIdAndDelete(carId)]);
+            if (car) {
+                if (!car.forSale) {
+                    return Promise.all([carModel.findByIdAndDelete(carId)]);
+                }
+                throw new Error(`403${__delimiter}You can't remove a car that is put for sale! Remove the offer first!`);
             }
-            throw new Error(`404${__delimiter}Car with that id doesn't exist or you don't have permission to modify it!`)
+            throw new Error(`404${__delimiter}Car with that id doesn't exist or you don't have permission to modify it!`);
         })
         .then(([removedCar]) => {
             res.status(200).send({ "message": "Car deleted successfully!" })

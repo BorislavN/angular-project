@@ -26,7 +26,7 @@ usersRouter.put("/collection/:carId",
     authUser(),
     cloudinaryHelper.parseFormMiddleware,
     carValidation.edit, checkForErrors,
-    carController.editCar);//edit car //AUTH// //TODO
+    carController.editCar);//edit car //AUTH// //DONE
 
 usersRouter.delete("/collection/:carId",
     authUser(),

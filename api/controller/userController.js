@@ -73,10 +73,20 @@ function editUserProfile(req, res, next) {
         .catch(next);
 };
 
+function depositMoney(req,res,next){
+
+};
+
+function withdrawMoney(req,res,next){
+
+};
+
 module.exports = {
     loginUser,
     registerUser,
     logoutUser,
     getUserProfile,
     editUserProfile,
+    depositMoney,
+    withdrawMoney
 };
