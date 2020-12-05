@@ -2,18 +2,20 @@ global.__basedir = __dirname;
 global.__delimiter = "delimiter";
 require('dotenv').config()
 
-const { errorHandler, cloudinaryHelper } = require('./util');
+const { errorHandler, cloudinaryHelper, blacklistCleaner } = require('./util');
 const mongoConnector = require('./config/mongo');
-const {apiRouter,authRouter} = require('./router');
+const { apiRouter, authRouter } = require('./router');
 const cors = require('cors');
 
-cloudinaryHelper.checkTempDir();//Creates temp dir if it doesn't exist.
+//Creates temp dir if it doesn't exist.
+cloudinaryHelper.checkTempDir();
 
 mongoConnector()
     .then(() => {
         const config = require('./config/config');
         const app = require('express')();
         require('./config/express')(app);
+        blacklistCleaner.start();
 
         app.use(cors({
             origin: config.origin,
