@@ -56,7 +56,7 @@ function editCar(req, res, next) {
                 }
                 return Promise.all([carModel.findByIdAndUpdate(carId, { ...otherFields }, { new: true })]);
             }
-            throw new Error(`404${__delimiter}Car with that id doesn't exist or you don't have permission to modify it!`)
+            throw new Error(`404${__delimiter}Car with that id doesn't exist or you don't have permission to modify it!`);
         })
         .then(([updatedCar]) => {
             res.status(200)

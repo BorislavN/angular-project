@@ -63,22 +63,49 @@ function getUserProfile(req, res, next) {
 
 function editUserProfile(req, res, next) {
     const { userId } = req.user;
-    const { username, email, balance } = req.body;
+    const { username, email } = req.body;
 
-    userModel.findOneAndUpdate({ _id: userId }, { balance, username, email }, { runValidators: true, new: true })
+    userModel.findOneAndUpdate({ _id: userId }, { username, email }, { runValidators: true, new: true })
         .then((updated) => {
             res.status(200)
-                .send({ "message": `Values updated successfully - username=${updated.username} email=${updated.email} balance=${updated.balance}` });
+                .send({ "message": `Values updated successfully - username=${updated.username} email=${updated.email}` });
         })
         .catch(next);
 };
 
-function depositMoney(req,res,next){
+function depositMoney(req, res, next) {
+    const { transaction } = req.body;
+    const { userId } = req.user;
 
+    userModel.findById(userId)
+        .then(result => {
+            result.balance = (result.balance + (+transaction));
+            result.save();
+
+            res.status(200)
+                .send({ "message": `Balance updated successfully - balance=${result.balance}` });
+        })
+        .catch(next);
 };
 
-function withdrawMoney(req,res,next){
+function withdrawMoney(req, res, next) {
+    const { transaction } = req.body;
+    const { userId } = req.user;
 
+    userModel.findById(userId)
+        .then(result => {
+            const tempBalance = (result.balance - (+transaction));
+
+            if (tempBalance >= 0) {
+                result.balance = tempBalance;
+                result.save();
+
+                res.status(200)
+                    .send({ "message": `Balance updated successfully - balance: ${result.balance}` });
+            }
+            throw new Error(`400${__delimiter}You can't withdraw more founds than you have - balance: ${result.balance}`);
+        })
+        .catch(next);
 };
 
 module.exports = {

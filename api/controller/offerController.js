@@ -1,5 +1,4 @@
-const { offerModel, carModel } = require("../model");
-
+const { offerModel, carModel, userModel } = require("../model");
 
 function getAllOffers(req, res, next) {
     offerModel.find()
@@ -98,11 +97,54 @@ function deleteOffer(req, res, next) {
         .catch(next);
 };
 
+function buyCarFromOffer(req, res, next) {
+    const { userId } = req.user;
+    const { offerId } = req.params;
+
+    offerModel.findById(offerId)
+        .then((offer) => {
+            if (offer) {
+                if (userId === offer.authorId) {
+                    throw new Error(`400${__delimiter}You can't buy your own car!`);
+                }
+                return Promise.all([userModel.findById(userId),
+                                    userModel.findById(offer.authorId),
+                                    carModel.findById(offer.carId),
+                                    Promise.resolve(offer.price),
+                                    Promise.resolve(offer._id)]);
+            }
+            throw new Error(`404${__delimiter}Such offer does not exist!`);
+        })
+        .then(([curr, owner, car, price, id]) => {
+            const diff = (curr.balance - price);
+
+            if (diff >= 0) {
+                curr.balance = diff;
+                owner.balance = (owner.balance + price);
+                car.forSale = false;
+                car.ownerId = curr._id;
+
+                return Promise.all([curr.save(),
+                                    owner.save(),
+                                    car.save(),
+                                    offerModel.deleteOne({ _id: id })]);
+            }
+            throw new Error(`400${__delimiter}Your funds are not sufficient to buy this car!`);
+        })
+        .then(([_, _, _, removed]) => {
+            if (removed.deletedCount === 1) {
+                res.status(200).json({ "message": "Car purchased successfully!" })
+            }
+        })
+        .catch(next);
+};
+
 module.exports = {
     getAllOffers,
     getMyOffers,
     getOffer,
     addOffer,
     editOffer,
-    deleteOffer
+    deleteOffer,
+    buyCarFromOffer
 };

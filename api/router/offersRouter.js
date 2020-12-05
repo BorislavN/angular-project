@@ -27,7 +27,7 @@ offersRouter.delete("/:offerId",
 
 offersRouter.post("/:offerId",
     authUser(),
-    console.log);//buy the car from the offer //AUTH// //TODO
+    offerController.buyCarFromOffer);//buy the car from the offer //AUTH// //DONE
 
 offersRouter.get("/",
     offerController.getAllOffers);//get all offers //DONE

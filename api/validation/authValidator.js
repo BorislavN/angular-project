@@ -14,6 +14,14 @@ const uniqueUsernameValidation = body('username').custom(value => {
     });
 });
 
+const newUsernameValidation = body('username').custom((value, { req }) => {
+    return userModel.findOne({ username: value }).then(user => {
+        if (user && (req.user.userId !== user._id)) {
+            return Promise.reject('User with that username already exists!');
+        }
+    });
+});
+
 const emailValidation = body("email")
     .trim()
     .isEmail()
@@ -23,6 +31,14 @@ const emailValidation = body("email")
 const uniqueEmailValidation = body('email').custom(value => {
     return userModel.findOne({ email: value }).then(user => {
         if (user) {
+            return Promise.reject('User with that e-mail already exists!');
+        }
+    });
+});
+
+const newEmailValidation = body('email').custom((value, { req }) => {
+    return userModel.findOne({ email: value }).then(user => {
+        if (user && (req.user.userId !== user._id)) {
             return Promise.reject('User with that e-mail already exists!');
         }
     });
@@ -46,6 +62,6 @@ const transactionValidation = body("transaction")
 module.exports = {
     "register": [usernameValidation, uniqueUsernameValidation, emailValidation, uniqueEmailValidation, passwordValidation, repeatPasswordValidation],
     "login": [usernameValidation, passwordValidation],
-    "edit": [],//TODO
+    "edit": [usernameValidation, newUsernameValidation, emailValidation, newEmailValidation],
     "transfer": [transactionValidation]
 }

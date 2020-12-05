@@ -12,17 +12,17 @@ authenticationRouter.put("/profile",
     authUser(),
     authValidator.edit,
     checkForErrors,
-    userController.editUserProfile);// edit profile //AUTH// //TODO
+    userController.editUserProfile);// edit profile //AUTH// //DONE
 
 authenticationRouter.post("/balance",
     authUser(),
     authValidator.transfer,
-    checkForErrors, console.log);// deposit money //AUTH// //TODO
+    checkForErrors, userController.depositMoney);// deposit money //AUTH// //DONE
 
 authenticationRouter.delete("/balance",
     authUser(),
     authValidator.transfer,
-    checkForErrors, console.log);// withdraw money //AUTH// //TODO
+    checkForErrors, userController.withdrawMoney);// withdraw money //AUTH// //DONE
 
 authenticationRouter.post("/register",
     authValidator.register,
