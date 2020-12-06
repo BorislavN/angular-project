@@ -21,8 +21,12 @@ const offerSchema = new mongoose.Schema({
     description: {
         type: String,
         default: ""
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
-}, { timestamps: { createdAt: 'created_at' } });
+});
 
 offerSchema.pre("deleteOne", { document: true, query: false }, function (next) {
     commentModel.deleteMany({ offerId: this._id }, (err) => {
