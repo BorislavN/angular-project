@@ -1,0 +1,30 @@
+<div *ngIf="!isLogged" class="container main">
+    <article>
+        <h2>Welcome to Car Shop</h2>
+        <p>This is the biggest car e-market on the Balkans. Here you can find anything from VW Golf 2, the
+            favorite car of the famous Bulgarian city of Pernik, to the Bugatti Chiron
+            Super Sport 300+, the record-breaking car that exceeded the magical threshold of 300 miles per hour
+            for the first time. Also, this is my project for the SoftUni Angular - November 2020 course. Check it
+            out!</p>
+        <div class="button-holder">
+            <a href="">Register</a>
+            <a href="">Login</a>
+        </div>
+    </article>
+</div>
+
+<div *ngIf="isLogged" class="container home-logged">
+    <h2>Hello, {{username}}!</h2>
+    <p>Here is a quick guide of what can you do:</p>
+    <ul class="options">
+        <li>go to Offers page to view all offers.</li>
+        <li>go to Add Car to add a car to your collection.</li>
+        <li>go to Collection to see the cars in your inventory.</li>
+        <li>once there you can edit, remove or sell it.</li>
+        <li>go to My Offers to view your offers.</li>
+        <li>go to an offer's details to leave a comment or buy the vehicle.</li>
+        <li>alternatively you can remove or edit the offer from there if it's yours.</li>
+        <li>go to Profile to view your profile info and edit it.</li>
+        <li>also from there you can withdraw or deposit to your balance.</li>
+    </ul>
+</div>

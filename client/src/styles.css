@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Racing+Sans+One&display=swap');
+
+body{
+    margin: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+    font-family: 'Lato', sans-serif;
+    background: linear-gradient( rgba(0, 0, 0, 0.50), rgba(0, 0, 0, 0.70)), url('../src/assets/lamborghini-huracan-evo-5k-2020-ww-1920x1080.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+*,
+*::before,
+*::after{
+    box-sizing: inherit;
+}
+
+.container{
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+footer, header {
+    background-color: #343A40;
+}
+
+.gray-text{
+    color: #6C757D;
+}
