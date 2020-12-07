@@ -19,7 +19,7 @@ function loginUser(req, res, next) {
 
     userModel.findOne({ username })
         .then((user) => {
-            return Promise.all(user, user ? user.comparePasswords(password) : false);
+            return Promise.all([Promise.resolve(user), Promise.resolve(user ? user.comparePasswords(password) : false)]);
         })
         .then(([user, passMatch]) => {
             if (!passMatch) {
