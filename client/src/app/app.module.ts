@@ -9,6 +9,8 @@ import { CoreModule } from './core/core.module';
 import { HeaderComponent } from './core/header/header.component';
 import { FooterComponent } from './core/footer/footer.component';
 import { ErrorPageComponent } from './feature/error-page/error-page.component';
+import { UserModule } from './feature/user/user.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { ErrorPageComponent } from './feature/error-page/error-page.component';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    CoreModule
+    CoreModule,
+    UserModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent,HeaderComponent,FooterComponent]

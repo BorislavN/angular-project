@@ -17,6 +17,4 @@ export class HomeComponent implements OnInit {
     this.titleService.setTitle("Home");
     this.username = this.authService.currentUser?.username || "anonymous";
   }
-
-
 }

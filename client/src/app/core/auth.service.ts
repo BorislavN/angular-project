@@ -4,8 +4,6 @@ import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IUser } from '../shared/interface/user';
 import {  catchError, tap } from 'rxjs/operators';
-import { IErrorResponse } from '../shared/interface/error';
-
 
 const authUrl = environment.authUrl;
 const credentials = { withCredentials: true };

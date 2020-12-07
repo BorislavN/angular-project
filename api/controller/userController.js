@@ -32,7 +32,7 @@ function loginUser(req, res, next) {
             } else {
                 res.cookie(cookieName, token, { httpOnly: true });
             }
-            res.status(202).send({ "message": `User: ${username} logged in successfully!` });
+            res.status(202).send({ "username": user.username,"email":user.email,"balance":user.balance,"_id":user._id});
         })
         .catch(next);
 };
@@ -67,8 +67,7 @@ function editUserProfile(req, res, next) {
 
     userModel.findOneAndUpdate({ _id: userId }, { username, email }, { runValidators: true, new: true })
         .then((updated) => {
-            res.status(200)
-                .send({ "message": `Values updated successfully - username=${updated.username} email=${updated.email}` });
+            res.status(200).send({ "username": updated.username,"email":updated.email,"balance":updated.balance,"_id":updated._id});
         })
         .catch(next);
 };
@@ -82,8 +81,7 @@ function depositMoney(req, res, next) {
             result.balance = (result.balance + (+transaction));
             result.save();
 
-            res.status(200)
-                .send({ "message": `Balance updated successfully - balance=${result.balance}` });
+            res.status(200).send({ "username": result.username,"email":result.email,"balance":result.balance,"_id":result._id});
         })
         .catch(next);
 };
@@ -100,8 +98,7 @@ function withdrawMoney(req, res, next) {
                 result.balance = tempBalance;
                 result.save();
 
-                res.status(200)
-                    .send({ "message": `Balance updated successfully - balance: ${result.balance}` });
+                res.status(200).send({ "username": result.username,"email":result.email,"balance":result.balance,"_id":result._id});
             }
             throw new Error(`400${__delimiter}You can't withdraw more founds than you have - balance: ${result.balance}`);
         })
