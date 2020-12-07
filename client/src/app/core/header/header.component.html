@@ -1,17 +1,22 @@
 <header>
     <div class="container header gray-text flex-between">
         <h1 class="title-wrapper">
-            <a class="title" href="">Car Shop</a>
+            <a class="title" routerLink="/" href="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Car Shop</a>
         </h1>
-        <ul class="flex-between link-list">
-            <li><a href="">Offers</a></li>
-            <li><a href="">Profile</a></li>
-            <li><a href="">My Offers</a></li>
-            <li><a href="">Collection</a></li>
-            <li><a href="">Add Car</a></li>
-            <li><a href="">Login</a></li>
-            <li><a href="">Register</a></li>
-            <li><a href="">Logout</a></li>
+
+        <ul class="flex-between link-list" *ngIf="!isLogged">
+            <li><a routerLink="/offers" href="" routerLinkActive="active">Offers</a></li>
+            <li><a routerLink="/user/login" href="" routerLinkActive="active">Login</a></li>
+            <li><a routerLink="/user/register" href="" routerLinkActive="active">Register</a></li>
+        </ul>
+
+        <ul class="flex-between link-list" *ngIf="isLogged">
+            <li><a routerLink="/offers" href="" routerLinkActive="active">Offers</a></li>
+            <li><a routerLink="/user/profile" href="" routerLinkActive="active">Profile</a></li>
+            <li><a routerLink="/user/offers" href="" routerLinkActive="active">My Offers</a></li>
+            <li><a routerLink="/user/collection" href="" routerLinkActive="active">Collection</a></li>
+            <li><a routerLink="/user/collection/add" href="" routerLinkActive="active">Add Car</a></li>
+            <li><a routerLink="/user/logout" href="" routerLinkActive="active">Logout</a></li>
         </ul>
     </div>
 </header>

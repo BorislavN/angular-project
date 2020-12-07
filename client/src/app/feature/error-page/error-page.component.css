@@ -1,9 +1,3 @@
-::ng-deep body{
-    background: linear-gradient( rgba(0, 0, 0, 0.50), rgba(0, 0, 0, 0.70)), url('../../../assets/alexander-jawfox-Qtk9Hjzw4Nk-unsplash.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
 .error-page{
     display: flex;
     flex-direction: column;

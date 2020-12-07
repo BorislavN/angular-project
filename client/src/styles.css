@@ -33,3 +33,9 @@ footer, header {
 .gray-text{
     color: #6C757D;
 }
+
+.body-error{
+    background: linear-gradient( rgba(0, 0, 0, 0.50), rgba(0, 0, 0, 0.70)), url('../src/assets/alexander-jawfox-Qtk9Hjzw4Nk-unsplash.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
