@@ -3,11 +3,11 @@ const CronJob = require('cron').CronJob;
 
 function blacklistCleaner() {
     let tempDate = new Date();
-    tempDate.setHours(tempDate.getHours - 12);
+    tempDate.setHours(tempDate.getHours() - 12);
 
     blacklistTokenModel.deleteMany()
         .where("createdAt")
-        .lt(tempDate.getTime())
+        .gt(tempDate.getTime())
         .then(result => {
             if (result.ok!==1) {
                 console.log("An error occurred while cleaning the Blacklist!");
@@ -19,6 +19,4 @@ function blacklistCleaner() {
 };
 
 //Creates the cron job that removes expired tokens from blacklist
-module.exports = new CronJob('* * * * *', blacklistCleaner);
-
-//0 */12 * * *
+module.exports = new CronJob('0 */12 * * *', blacklistCleaner);
