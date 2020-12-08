@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { UserService } from '../user.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent {
+export class RegisterComponent implements AfterViewInit {
   isLoading = false;
   errors;
   form: FormGroup;
@@ -24,6 +24,9 @@ export class RegisterComponent {
       password: passwordControl,
       repeatPassword: ["", [Validators.required, repeatPasswordValidator(passwordControl)]],
     });
+  }
+
+  ngAfterViewInit(): void {
     this.titleService.setTitle("Register");
   };
 
@@ -38,7 +41,7 @@ export class RegisterComponent {
       },
       error: (err) => {
         let messages = err.error?.errors || [err.error.message];
-        Array.from(messages).forEach((el:any) => {
+        Array.from(messages).forEach((el: any) => {
           this.errors.push(el.msg);
         });
         this.isLoading = false;

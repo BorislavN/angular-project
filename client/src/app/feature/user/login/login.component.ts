@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
@@ -8,13 +8,13 @@ import { UserService } from '../user.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements AfterViewInit {
   isLoading = false;
   errorMessage = '';
 
-  constructor(private userService: UserService, private router: Router, private titleService: Title) { };
+  constructor(private userService: UserService, private router: Router, private titleService: Title) { } 
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.titleService.setTitle("Login");
   };
 

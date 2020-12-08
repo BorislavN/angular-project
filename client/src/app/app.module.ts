@@ -10,6 +10,7 @@ import { HeaderComponent } from './core/header/header.component';
 import { FooterComponent } from './core/footer/footer.component';
 import { ErrorPageComponent } from './feature/error-page/error-page.component';
 import { UserModule } from './feature/user/user.module';
+import { CarModule } from './feature/car/car.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { UserModule } from './feature/user/user.module';
     AppRoutingModule,
     CoreModule,
     UserModule,
+    CarModule
   ],
   providers: [],
   bootstrap: [AppComponent,HeaderComponent,FooterComponent]

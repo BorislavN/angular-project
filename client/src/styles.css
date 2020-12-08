@@ -69,7 +69,7 @@ form h3{
     align-items: center;
 }
 
-.form-group input{
+.form-group input, .form-group select{
     width: 250px;
     font-size: 18px;
     outline: none;
@@ -130,4 +130,21 @@ form > *{
 
 .disabled{
     color: gray;
+}
+
+.error-message{
+    padding: 2px;
+    margin: 0px;
+     color: #721C24;
+     background-color: #F8D7DA;
+     width: 100%;
+     max-width: 360px;
+     border-radius: 20px;
+}
+
+label.files{
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    cursor: pointer;
+    text-align: center;
 }

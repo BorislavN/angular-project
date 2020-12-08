@@ -14,7 +14,7 @@
             <li><a routerLink="/offers" href="" routerLinkActive="active">Offers</a></li>
             <li><a routerLink="/user/profile" href="" routerLinkActive="active">Profile</a></li>
             <li><a routerLink="/user/offers" href="" routerLinkActive="active">My Offers</a></li>
-            <li><a routerLink="/user/collection" href="" routerLinkActive="active">Collection</a></li>
+            <li><a routerLink="/user/collection" href="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Collection</a></li>
             <li><a routerLink="/user/collection/add" href="" routerLinkActive="active">Add Car</a></li>
             <li><a (click)="handleLogout()" routerLink="/" href="">Logout</a></li>
         </ul>

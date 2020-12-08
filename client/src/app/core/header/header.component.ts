@@ -13,6 +13,9 @@ export class HeaderComponent {
   constructor(private authService: AuthService, private router: Router) { }
 
   handleLogout(): void {
+    if(!this.authService.isLogged){
+      this.router.navigateByUrl("/error",{queryParams:{error:`You can\'t logout if you are not logged in ;D!`}});
+    }
     this.authService.logout().subscribe({
       next: (data) => {
         this.router.navigateByUrl("/");
