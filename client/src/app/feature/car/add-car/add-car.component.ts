@@ -19,6 +19,11 @@ export class AddCarComponent implements OnInit {
   files: File[];
 
   constructor(private carService: CarService, private router: Router, private titleService: Title, private builder: FormBuilder) {
+    this.errors = [];
+    this.files = [];
+    this.currentYear = new Date().getFullYear();
+    this.isLoading = false;
+
     this.form = builder.group({
       make: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(10)]],
       model: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(20)]],
@@ -28,16 +33,12 @@ export class AddCarComponent implements OnInit {
       transmission: ["", [Validators.required, transmissionValidator]],
       pictures: ["", [picturesValidator]]
     });
-
-    this.errors = [];
-    this.files = [];
-    this.currentYear = new Date().getFullYear();
-    this.isLoading = false;
   }
 
   fileHandler(data: FileList): void {
     this.files = Array.from(data);
     this.form.get("pictures").setValue(this.files.map(e => e.name).join(";"));
+    this.form.get("pictures").markAsTouched();
   };
 
 
@@ -58,6 +59,15 @@ export class AddCarComponent implements OnInit {
         formData.set(key, formValue[key]);
       }
     }
-    //call service
+    this.carService.addCar(formData).subscribe({
+      next: (result) => {
+        console.log(result);
+        this.router.navigateByUrl("user/collection");
+      },
+      error: (err) => {
+        console.log(err);
+
+      }
+    });
   };
 };

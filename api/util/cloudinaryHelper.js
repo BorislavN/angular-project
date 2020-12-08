@@ -23,7 +23,7 @@ function cleanTempPictures(arr) {
 };
 
 function parseFormMiddleware(req, res, next) {
-    const form = formidable({ maxFileSize: 2 * 1024 * 1024, uploadDir: temp_path, keepExtensions: true });
+    const form = formidable({ maxFileSize: 6 * 1024 * 1024, uploadDir: tempPath, keepExtensions: true });
     let tempFilePaths = [];
     let tempFields = {};
 
@@ -39,21 +39,22 @@ function parseFormMiddleware(req, res, next) {
     });
 
     form.on("end", () => {
-        const resultObjects = [];
-
-        tempFilePaths.forEach((entry) => {
-            cloud.uploader.upload(`temp${(entry).split("temp")[1]}`, (result, err) => {
-                if (err) {
-                    next(err);
-                }
-                const { public_id, secure_url } = result;
-                resultObjects.push({ "id": public_id, "url": secure_url });
-            });
-        });
-        cleanTempPictures(tempFilePaths);
-
-        req.body = { "pictures": resultObjects, ...tempFields };
-        next();
+        Promise.all(tempFilePaths.map((entry) => {
+            return new Promise((resolve, reject) => {
+                cloud.uploader.upload(`temp${(entry).split("temp")[1]}`, (result, err) => {
+                    if (err) {
+                        reject(err);
+                    }
+                    const { public_id, secure_url } = result;
+                    resolve({ "id": public_id, "url": secure_url });
+                });
+            })
+        })).then(result => {
+            req.body = { "pictures": result, ...tempFields };
+            next();
+        }).then(() => {
+            cleanTempPictures(tempFilePaths);
+        }).catch(next);
     })
 };
 
