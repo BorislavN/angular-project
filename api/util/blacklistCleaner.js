@@ -19,4 +19,6 @@ function blacklistCleaner() {
 };
 
 //Creates the cron job that removes expired tokens from blacklist
-module.exports = new CronJob('0 */12 * * *', blacklistCleaner);
+module.exports = new CronJob('* * * * *', blacklistCleaner);
+
+//0 */12 * * *

@@ -5,10 +5,10 @@ const { cloudinaryHelper } = require("../util");
 function getMyCars(req, res, next) {
     carModel.find({ ownerId: req.user.userId })
         .sort({ forSale: -1 })
-        .populate({
-            path: "ownerId",
-            select: "-password"
-        })
+        // .populate({
+        //     path: "ownerId",
+        //     select: "-password"
+        // })
         .then(cars => {
             res.status(200).json(cars);
         })

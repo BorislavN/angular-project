@@ -1,0 +1,32 @@
+.card{
+    text-align: center;
+    width:  230px;
+    height: 230px;
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    padding: 1px;
+    color: whitesmoke;
+    border-radius: 20px;
+    background: linear-gradient(270deg, rgba(52,58,64,1) 0%, rgba(59,66,72,1) 38%, rgba(108,117,125,1) 91%);
+}
+
+a.car-link{
+    text-decoration: none;
+}
+
+.card.for-sale{
+    background: #721C24;
+}
+
+.wrapper{
+    flex-grow: 1;
+}
+
+article.card img{
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+}

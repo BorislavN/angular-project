@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { Observable, of } from 'rxjs';
+import { ICarCard } from 'src/app/shared/interface/car-card';
 import { IResponseMessage } from 'src/app/shared/interface/message';
 import { environment } from 'src/environments/environment';
 
@@ -12,7 +13,11 @@ export class CarService {
     constructor(private http: HttpClient) { }
 
     addCar(data: FormData): Observable<IResponseMessage> {
-        return this.http.post<IResponseMessage>(`${apiUrl}/users/collection`, data,withCredentials);
+        return this.http.post<IResponseMessage>(`${apiUrl}/users/collection`, data, withCredentials);
+    }
+
+    getMyCollection(): Observable<ICarCard[]> {
+        return this.http.get<ICarCard[]>(`${apiUrl}/users/collection`, withCredentials);
     }
 
     // login(data: any): Observable<IUser> {

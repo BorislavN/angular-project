@@ -1,6 +1,7 @@
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from 'src/app/core/guard/auth.guard';
 import { AddCarComponent } from './add-car/add-car.component';
+import { CollectionComponent } from './collection/collection.component';
 
 const routes: Routes = [
     {
@@ -10,6 +11,14 @@ const routes: Routes = [
             {
                 path: 'add',
                 component: AddCarComponent,
+                data: {
+                    isLogged: true,
+                }
+            },
+            {
+                path: '',
+                pathMatch: 'full',
+                component: CollectionComponent,
                 data: {
                     isLogged: true,
                 }

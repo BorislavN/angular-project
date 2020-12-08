@@ -1,0 +1,8 @@
+.empty{
+    margin: 30px auto;
+    color: whitesmoke;
+    border-radius: 15px;
+    padding: 10px 75px;
+    box-shadow: 10px 10px 30px -10px rgba(0,0,0,0.75);
+    background: linear-gradient(270deg, rgba(52,58,64,1) 0%, rgba(59,66,72,1) 38%, rgba(108,117,125,1) 91%);
+}

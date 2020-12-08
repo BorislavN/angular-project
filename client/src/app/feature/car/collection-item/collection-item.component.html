@@ -1,0 +1,8 @@
+<a class="car-link" [routerLink]="['/user/collection', id]" href="">
+    <article [class.for-sale]="forSale" class="card for-sale">
+        <div class="wrapper">
+            <img [attr.src]="url" alt="picture">
+        </div>
+        <h4>{{make}} {{model}}</h4>
+    </article>
+</a>

@@ -1,0 +1,11 @@
+<div class="container">
+    <app-loading *ngIf="isLoading"></app-loading>
+
+    <ng-container *ngIf="!isLoading">
+        <app-base-content *ngIf="(collection.length===0)"></app-base-content>
+
+        <ng-container *ngIf="(collection.length>0)">
+            <app-collection-item *ngFor="let card of collection" [car]="card"></app-collection-item>
+        </ng-container>
+    </ng-container>
+</div>
