@@ -7,7 +7,7 @@ function blacklistCleaner() {
 
     blacklistTokenModel.deleteMany()
         .where("createdAt")
-        .gt(tempDate.getTime())
+        .lt(tempDate.getTime())
         .then(result => {
             if (result.ok!==1) {
                 console.log("An error occurred while cleaning the Blacklist!");
