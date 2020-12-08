@@ -1,4 +1,4 @@
-const cookieName = process.env.AUTH_COOKIE_NAME;
+const cookieName = process.env.MY_AUTH_COOKIE_NAME;
 const { jwtHelper } = require("../util");
 const { userModel, blacklistTokenModel } = require("../model");
 

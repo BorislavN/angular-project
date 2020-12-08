@@ -10,6 +10,16 @@ import { AuthService } from '../auth.service';
 export class HeaderComponent {
   get isLogged(): boolean { return this.authService.isLogged }
 
-  constructor(private authService: AuthService ,private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
+  handleLogout(): void {
+    this.authService.logout().subscribe({
+      next: (data) => {
+        this.router.navigateByUrl("/");
+      },
+      error: (err) => {
+        this.router.navigateByUrl("/error",{queryParams:{error:err.error.message}});
+      }
+    })
+  }
 }

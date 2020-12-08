@@ -53,6 +53,7 @@ const repeatPasswordValidation = body('repeatPassword').custom((value, { req }) 
     if (value !== req.body.password) {
         return Promise.reject('Passwords don\'t match!');
     }
+    return Promise.resolve(null);
 });
 
 const transactionValidation = body("transaction")

@@ -1,21 +1,25 @@
 <div class="container">
     <form [formGroup]="form" (ngSubmit)="submitFormHandler()">
         <h3>Register</h3>
-        <div *ngIf="(!!(errorMessage))
+        <div *ngIf="(!!(errors))
                      ||(form.get('username').invalid&&form.get('username').touched)
                      ||(form.get('email').invalid&&form.get('email').touched)
                      ||(form.get('password').invalid&&form.get('password').touched)
-                     ||(form.get('repeatPassword').errors?.repeatPasswordValidation)
-                     ||(form.get('repeatPassword').errors?.required&&form.get('repeatPassword').touched)"
-            class="errors">
-            <p *ngIf="(!!(errorMessage))">{{errorMessage}}</p>
+                     ||(form.get('repeatPassword').errors?.repeatPasswordValidation)" class="errors">
+                     
+            <ng-container *ngIf="!!(errors)">
+                <p *ngFor="let msg of errors">
+                    {{msg}}
+                </p>
+            </ng-container>
+
             <p *ngIf="form.get('username').invalid&&form.get('username').touched">Username must be 4-20 symbols!</p>
             <p *ngIf="form.get('email').invalid&&form.get('email').touched">Email must be valid!</p>
             <p *ngIf="form.get('password').invalid&&form.get('password').touched">Password must be 6-20 symbols!</p>
             <p *ngIf="form.get('repeatPassword').errors?.repeatPasswordValidation">
                 Passwords don't match!</p>
-            <p *ngIf="form.get('repeatPassword').errors?.required&&form.get('repeatPassword').touched">Repeat password
-                is required!</p>
+            <!-- <p *ngIf="form.get('repeatPassword').errors?.required&&form.get('repeatPassword').touched">Repeat password
+                is required!</p> -->
         </div>
         <div class="form-group">
             <label [class.error-label]="form.get('username').touched && form.get('username').invalid" for="username"><i

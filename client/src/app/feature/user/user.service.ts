@@ -14,21 +14,13 @@ export class UserService {
     constructor(private http: HttpClient, private authService: AuthService) { }
 
     login(data: any): Observable<IUser> {
-        return this.http.post(`${authUrl}/login`, data).pipe(
+        return this.http.post(`${authUrl}/login`, data, withCredentials).pipe(
             tap((user: IUser) => this.authService.currentUser = user)
         );
     }
 
     register(data: any): Observable<IUser> {
-        return this.http.post(`${authUrl}/register`, data).pipe(
-            tap((user: IUser) =>this.authService.currentUser = user)
-        );
-    }
-
-    logout(): Observable<any> {
-        return this.http.post(`${authUrl}/logout`, {}, withCredentials).pipe(
-            tap(() =>this.authService.currentUser = null)
-        );
+        return this.http.post<IUser>(`${authUrl}/register`, data, withCredentials);
     }
 
     updateProfile(data: any): Observable<IUser> {

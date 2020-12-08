@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IUser } from '../shared/interface/user';
-import {  catchError, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 
 const authUrl = environment.authUrl;
 const credentials = { withCredentials: true };
@@ -18,15 +18,21 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  authenticate(): Observable<IUser|null> {
+  authenticate(): Observable<IUser | null> {
     return this.http.get<IUser>(`${authUrl}/profile`, credentials).pipe(
       tap((result: IUser) => {
         this.currentUser = result;
       }),
-      catchError(()=>{
-        this.currentUser=null;
+      catchError(() => {
+        this.currentUser = null;
         return of(null);
       })
+    );
+  };
+
+  logout(): Observable<any> {
+    return this.http.post(`${authUrl}/logout`, {}, credentials).pipe(
+      tap(() => this.currentUser = null)
     );
   }
 }
