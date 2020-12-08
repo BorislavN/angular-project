@@ -1,6 +1,7 @@
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from 'src/app/core/guard/auth.guard';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
     {
@@ -14,15 +15,13 @@ const routes: Routes = [
                     isLogged: false,
                 }
             },
-            // {
-            //     path: 'register',
-            //     component: RegisterComponent,
-            //     data: {
-            //         isLogged: false,
-            //         noNavigation: true,
-            //         title: 'REGISTER USER'
-            //     },
-            // },
+            {
+                path: 'register',
+                component: RegisterComponent,
+                data: {
+                    isLogged: false,
+                },
+            },
             // {
             //     path: 'profile',
             //     component: ProfileComponent,
