@@ -5,6 +5,7 @@ import { UserService } from './user.service';
 import { UserRoutingModule } from './user-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent],
@@ -12,7 +13,8 @@ import { RegisterComponent } from './register/register.component';
     CommonModule,
     UserRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
   providers:[
     UserService

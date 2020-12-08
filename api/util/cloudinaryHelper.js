@@ -51,9 +51,8 @@ function parseFormMiddleware(req, res, next) {
             })
         })).then(result => {
             req.body = { "pictures": result, ...tempFields };
-            next();
-        }).then(() => {
             cleanTempPictures(tempFilePaths);
+            next();
         }).catch(next);
     })
 };

@@ -4,6 +4,7 @@ import { AddCarComponent } from './add-car/add-car.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CarRoutingModule } from './car-routing.module';
 import { CarService } from './car.service';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [AddCarComponent],
@@ -11,7 +12,8 @@ import { CarService } from './car.service';
     CommonModule,
     ReactiveFormsModule,
     CarRoutingModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ],
   providers: [
     CarService

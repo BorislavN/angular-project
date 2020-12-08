@@ -6,7 +6,7 @@
                      ||(form.get('email').invalid&&form.get('email').touched)
                      ||(form.get('password').invalid&&form.get('password').touched)
                      ||(form.get('repeatPassword').errors?.repeatPasswordValidation)" class="errors">
-                     
+
             <ng-container *ngIf="!!(errors)">
                 <p *ngFor="let msg of errors">
                     {{msg}}
@@ -43,5 +43,9 @@
         </div>
         <input [class.disabled]="isLoading || form.invalid" [disabled]="isLoading || form.invalid" class="submit"
             class="submit" type="submit" value="Submit">
+
+        <ng-container *ngIf="isLoading">
+            <app-loading></app-loading>
+        </ng-container>
     </form>
 </div>

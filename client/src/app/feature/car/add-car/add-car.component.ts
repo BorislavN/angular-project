@@ -47,6 +47,9 @@ export class AddCarComponent implements OnInit {
   }
 
   submitFormHandler(): void {
+    this.isLoading = true;
+    this.errors = [];
+
     let formData = new FormData();
     const formValue = this.form.value;
 
@@ -61,12 +64,20 @@ export class AddCarComponent implements OnInit {
     }
     this.carService.addCar(formData).subscribe({
       next: (result) => {
-        console.log(result);
+        this.isLoading = false;
         this.router.navigateByUrl("user/collection");
       },
       error: (err) => {
-        console.log(err);
+        let messages = err.error?.errors || [];
+        this.isLoading = false;
 
+        if (messages.length === 0) {
+          this.router.navigateByUrl("/error", { queryParams: { error: err.error.message } })
+        }
+
+        Array.from(messages).forEach((el: any) => {
+          this.errors.push(el.msg);
+        });
       }
     });
   };

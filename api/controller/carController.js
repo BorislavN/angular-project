@@ -1,9 +1,10 @@
 const e = require("express");
-const { carModel, userModel } = require("../model");
+const { carModel } = require("../model");
 const { cloudinaryHelper } = require("../util");
 
 function getMyCars(req, res, next) {
     carModel.find({ ownerId: req.user.userId })
+        .sort({ forSale: -1 })
         .populate({
             path: "ownerId",
             select: "-password"
