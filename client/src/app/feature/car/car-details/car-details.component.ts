@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ICar } from 'src/app/shared/interface/car-details';
 import { parseUrl } from 'src/app/shared/util/url.parser';
@@ -11,11 +12,21 @@ import { CarService } from '../car.service';
 })
 export class CarDetailsComponent implements OnInit {
   isLoading: boolean;
-  currentCar:ICar;
-  imgUrl:String;
+  inForm: boolean;
+  formLoading: boolean;
+  currentCar: ICar;
+  imgUrl: String;
+  form: FormGroup;
 
-  constructor(private route: ActivatedRoute, private router: Router, private carService: CarService) {
+  constructor(private route: ActivatedRoute, private router: Router, private carService: CarService, private builder: FormBuilder) {
     this.isLoading = true;
+    this.formLoading = false;
+    this.inForm = false;
+
+    this.form = this.builder.group({
+      price: ["", [Validators.required, Validators.min(100), Validators.max(5000000)]],
+      description: ["", [Validators.maxLength(750)]]
+    });
   }
 
   ngOnInit(): void {
@@ -23,7 +34,7 @@ export class CarDetailsComponent implements OnInit {
 
     this.carService.getCar(carId).subscribe({
       next: (result) => {
-        this.imgUrl=parseUrl(result.pictures[0]);
+        this.imgUrl = parseUrl(result.pictures[0]);
         this.currentCar = result;
         this.isLoading = false;
       },
@@ -32,4 +43,24 @@ export class CarDetailsComponent implements OnInit {
       }
     })
   }
+
+  toggleForm() {
+    this.inForm = !(this.inForm);
+  }
+
+  submitFormHandler(): void {
+    this.formLoading = true;
+
+    this.carService.sellCar({ carId: this.currentCar._id, ...this.form.value }).subscribe({
+      next: (result) => {
+        this.formLoading = false;
+        this.router.navigateByUrl("user/offers");
+      },
+      error: (err) => {
+        this.router.navigateByUrl("/error", { queryParams: { error: err.error.message } })
+      }
+    });
+  }
 }
+
+//see what happens with errors

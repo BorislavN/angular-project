@@ -21,8 +21,12 @@ export class CarService {
         return this.http.get<ICarCard[]>(`${apiUrl}/users/collection`, withCredentials);
     }
 
-    getCar(id:String): Observable<ICar> {
+    getCar(id: String): Observable<ICar> {
         return this.http.get<ICar>(`${apiUrl}/users/collection/${id}`, withCredentials);
+    }
+
+    sellCar(data: { carId: String, price: Number, description: String }): Observable<IResponseMessage> {
+        return this.http.post<IResponseMessage>(`${apiUrl}/offers`, data, withCredentials);
     }
 
     // login(data: any): Observable<IUser> {

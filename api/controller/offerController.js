@@ -58,7 +58,7 @@ function addOffer(req, res, next) {
     const { userId } = req.user;
     const { carId, price, description } = req.body;
 
-    carModel.findOne({ carId, authorId: userId })
+    carModel.findOne({ _id:carId, ownerId: userId })
         .then(car => {
             if (car) {
                 car.forSale = true;
