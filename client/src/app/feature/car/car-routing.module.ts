@@ -30,21 +30,7 @@ const routes: Routes = [
                 data: {
                     isLogged: true,
                 }
-            },
-            // {
-            //     path: 'register',
-            //     component: ,
-            //     data: {
-            //         isLogged: false,
-            //     },
-            // },
-            // {
-            //     path: 'profile',
-            //     component: ProfileComponent,
-            //     data: {
-            //         isLogged: true,
-            //         title: 'USER PROFILE'
-            //     }
+            }
         ]
     }
 ];

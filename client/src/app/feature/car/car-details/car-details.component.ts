@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ICar } from 'src/app/shared/interface/car-details';
 import { parseUrl } from 'src/app/shared/util/url.parser';
@@ -18,7 +19,7 @@ export class CarDetailsComponent implements OnInit {
   imgUrl: String;
   form: FormGroup;
 
-  constructor(private route: ActivatedRoute, private router: Router, private carService: CarService, private builder: FormBuilder) {
+  constructor(private route: ActivatedRoute, private router: Router, private carService: CarService, private builder: FormBuilder, private titleService : Title) {
     this.isLoading = true;
     this.formLoading = false;
     this.inForm = false;
@@ -30,6 +31,7 @@ export class CarDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle("Car Details");
     const carId = this.route.snapshot.params['id'];
 
     this.carService.getCar(carId).subscribe({

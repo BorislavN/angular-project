@@ -6,9 +6,10 @@ import { UserRoutingModule } from './user-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { OfferListComponent } from './offer-list/offer-list.component';
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent],
+  declarations: [LoginComponent, RegisterComponent, OfferListComponent],
   imports: [
     CommonModule,
     UserRoutingModule,

@@ -1,0 +1,37 @@
+div.offers{
+    padding: 0;
+    margin: 50px auto;
+    max-width: 800px;
+}
+
+.link{
+    text-decoration: none;
+}
+
+div.offers > a >p{
+    margin: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background:linear-gradient(90deg, rgba(32,37,38,1) 0%, rgba(87,31,37,1) 31%, rgba(85,31,37,1) 73%, rgba(28,37,38,1) 100%);
+    color: whitesmoke;
+    box-shadow: 10px 10px 30px -10px rgba(0,0,0,0.75);
+    font-size: 18px;
+    border-radius: 15px;
+}
+
+div.offers > a >p:hover{
+    background: linear-gradient(90deg, rgba(87,31,37,1) 15%, rgba(32,37,38,1) 49%, rgba(85,31,37,1) 94%);
+}
+
+.thumbnail{
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    width: 100px;
+    height: 80px;
+    object-fit: cover;
+}
+
+div.offers > a>p >* {
+    margin-right: 20px;
+}

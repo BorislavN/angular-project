@@ -3,10 +3,12 @@ import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/core/auth.service';
+import { IOfferCard } from 'src/app/shared/interface/offer';
 import { IUser } from 'src/app/shared/interface/user';
 import { environment } from 'src/environments/environment';
 
 const authUrl = environment.authUrl;
+const apiUrl = environment.apiUrl;
 const withCredentials = { withCredentials: true };
 
 @Injectable()
@@ -39,5 +41,9 @@ export class UserService {
         return this.http.delete(`${authUrl}/balance`, withCredentials).pipe(
             tap((user: IUser) => this.authService.currentUser = user)
         );
+    }
+
+    getMyOffers(): Observable<IOfferCard[]> {
+        return this.http.get<IOfferCard[]>(`${apiUrl}/users/offers`, withCredentials);
     }
 };

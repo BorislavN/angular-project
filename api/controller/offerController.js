@@ -29,6 +29,7 @@ function getMyOffers(req, res, next) {
     const { userId } = req.user;
 
     offerModel.find({ authorId: userId })
+        .sort({ createdAt: -1 })
         .populate("carId")
         .then(offers => {
             res.status(200).json(offers);
@@ -58,7 +59,7 @@ function addOffer(req, res, next) {
     const { userId } = req.user;
     const { carId, price, description } = req.body;
 
-    carModel.findOne({ _id:carId, ownerId: userId })
+    carModel.findOne({ _id: carId, ownerId: userId })
         .then(car => {
             if (car) {
                 car.forSale = true;
