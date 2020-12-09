@@ -1,7 +1,5 @@
 # angular-project
 
----
-
 ## 1.About the project.  
 This is my project for the Angular November 2020 course at SoftUni.  
 It represents a car e-market.  
