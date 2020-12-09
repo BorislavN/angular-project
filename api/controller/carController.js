@@ -19,10 +19,10 @@ function getCar(req, res, next) {
     const { carId } = req.params;
 
     carModel.findById(carId)
-        .populate({
-            path: "ownerId",
-            select: "-password"
-        })
+        // .populate({
+        //     path: "ownerId",
+        //     select: "-password"
+        // })
         .then(car => {
             res.status(200).json(car);
         })

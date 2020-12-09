@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { Observable, of } from 'rxjs';
 import { ICarCard } from 'src/app/shared/interface/car-card';
+import { ICar } from 'src/app/shared/interface/car-details';
 import { IResponseMessage } from 'src/app/shared/interface/message';
 import { environment } from 'src/environments/environment';
 
@@ -18,6 +19,10 @@ export class CarService {
 
     getMyCollection(): Observable<ICarCard[]> {
         return this.http.get<ICarCard[]>(`${apiUrl}/users/collection`, withCredentials);
+    }
+
+    getCar(id:String): Observable<ICar> {
+        return this.http.get<ICar>(`${apiUrl}/users/collection/${id}`, withCredentials);
     }
 
     // login(data: any): Observable<IUser> {

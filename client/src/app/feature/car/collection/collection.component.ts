@@ -29,6 +29,6 @@ export class CollectionComponent implements OnInit {
       error: (err) => {
         this.router.navigateByUrl("/error", { queryParams: { error: err.error.message } })
       }
-    })
+    });
   }
 }

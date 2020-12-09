@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ICarCard } from 'src/app/shared/interface/car-card';
+import { parseUrl } from 'src/app/shared/util/url.parser';
 
-const cloudUrl = "https://res.cloudinary.com/dqll1uvhe/image/upload/";
+// const cloudUrl = "https://res.cloudinary.com/dqll1uvhe/image/upload/";
 
 @Component({
   selector: 'app-collection-item',
@@ -24,8 +25,9 @@ export class CollectionItemComponent implements OnInit {
     this.make = this.car.make;
     this.model = this.car.model;
     this.id = this.car._id;
-    let imgName = ((this.car.pictures[0]).url.split(cloudUrl)[1]).split("/")[1];
-    this.url = `${cloudUrl}q_40/${imgName}`;
+    // let imgName = ((this.car.pictures[0]).url.split(cloudUrl)[1]).split("/")[1];
+    // this.url = `${cloudUrl}q_40/${imgName}`;
+    this.url = parseUrl(this.car.pictures[0]);
     this.forSale = this.car.forSale;
   }
 }

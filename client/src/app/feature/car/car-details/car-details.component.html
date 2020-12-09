@@ -1,1 +1,33 @@
-<p>car-details works!</p>
+<div class="container">
+    <div *ngIf="isLoading" class="loader">
+        <app-loading></app-loading>
+    </div>
+
+    <ng-container *ngIf="!isLoading">
+        <article class="details">
+            <div class="wrapper">
+                <img [attr.src]="imgUrl" alt="picture">
+            </div>
+            <div class="content">
+                <h3>Car Details</h3>
+                <div class="text">
+                    <div class="col">
+                        <p>Make: {{currentCar.make}}</p>
+                        <p>Miles: {{currentCar.miles}}</p>
+                        <p>Powertrain: {{currentCar.powertrain}}</p>
+                    </div>
+                    <div class="col">             
+                        <p>Model: {{currentCar.model}}</p>
+                        <p>Year: {{currentCar.year}}</p>
+                        <p>Transmission: {{currentCar.transmission}}</p>
+                    </div>
+                </div>
+                <div class="btn-holder">
+                    <button>Edit</button>
+                    <button>Delete</button>
+                    <button>Sell</button>
+                </div>
+            </div>
+        </article>
+    </ng-container>
+</div>
