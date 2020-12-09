@@ -72,7 +72,7 @@ export class AddCarComponent implements OnInit {
         this.isLoading = false;
 
         if (messages.length === 0) {
-          this.router.navigateByUrl("/error", { queryParams: { error: err.error.message } })
+          this.router.navigate(['/error'], { queryParams: { error: err.error.message } })
         }
 
         Array.from(messages).forEach((el: any) => {

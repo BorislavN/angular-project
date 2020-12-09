@@ -19,6 +19,10 @@ div.error-page h2{
     border-bottom: 1px solid whitesmoke;
 }
 
+p.message{
+    text-align: center;
+}
+
 div.error-page .back{
     font-size: 20px;
     text-decoration: none;

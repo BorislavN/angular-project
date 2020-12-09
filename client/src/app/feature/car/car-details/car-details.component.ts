@@ -39,7 +39,7 @@ export class CarDetailsComponent implements OnInit {
         this.isLoading = false;
       },
       error: (err) => {
-        this.router.navigateByUrl("/error", { queryParams: { error: err.error.message } })
+        this.router.navigate(['/error'], { queryParams: { error: err.error.message } })
       }
     })
   }
@@ -57,10 +57,8 @@ export class CarDetailsComponent implements OnInit {
         this.router.navigateByUrl("user/offers");
       },
       error: (err) => {
-        this.router.navigateByUrl("/error", { queryParams: { error: err.error.message } })
+        this.router.navigate(['/error'], { queryParams: { error: (err?.error?.message || err.message) } })
       }
     });
   }
 }
-
-//see what happens with errors

@@ -14,14 +14,14 @@ export class HeaderComponent {
 
   handleLogout(): void {
     if(!this.authService.isLogged){
-      this.router.navigateByUrl("/error",{queryParams:{error:`You can\'t logout if you are not logged in ;D!`}});
+      this.router.navigate(['/error'],{queryParams:{error:`You can\'t logout if you are not logged in ;D!`}});
     }
     this.authService.logout().subscribe({
       next: (data) => {
         this.router.navigateByUrl("/");
       },
       error: (err) => {
-        this.router.navigateByUrl("/error",{queryParams:{error:err.error.message}});
+        this.router.navigate(['/error'],{queryParams:{error:err.error.message}});
       }
     })
   }

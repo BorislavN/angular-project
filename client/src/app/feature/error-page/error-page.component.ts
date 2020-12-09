@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-error-page',
@@ -9,16 +10,21 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ErrorPageComponent implements OnInit, OnDestroy {
   message: String;
+  subscription: Subscription;
 
-  constructor(private el: ElementRef, private renderer: Renderer2, private titleService: Title, private route: ActivatedRoute) {}
+  constructor(private el: ElementRef, private renderer: Renderer2, private titleService: Title, private route: ActivatedRoute) { }
 
   ngOnDestroy(): void {
-    this.renderer.removeClass(this.el.nativeElement.ownerDocument.body,"body-error");
+    this.renderer.removeClass(this.el.nativeElement.ownerDocument.body, "body-error");
+    this.subscription.unsubscribe();
   }
 
   ngOnInit(): void {
-    this.renderer.addClass(this.el.nativeElement.ownerDocument.body,"body-error");
+    this.renderer.addClass(this.el.nativeElement.ownerDocument.body, "body-error");
     this.titleService.setTitle("Oops");
-    this.message = this.route.snapshot.queryParams['error'] || "Page Not Found"
+
+    this.subscription = this.route.queryParams.subscribe((val) => {
+      this.message = val.error || "Page Not Found";
+    });
   }
 }
