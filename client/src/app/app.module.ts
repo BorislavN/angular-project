@@ -11,6 +11,7 @@ import { FooterComponent } from './core/footer/footer.component';
 import { ErrorPageComponent } from './feature/error-page/error-page.component';
 import { UserModule } from './feature/user/user.module';
 import { CarModule } from './feature/car/car.module';
+import { OfferModule } from './feature/offer/offer.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CarModule } from './feature/car/car.module';
     AppRoutingModule,
     CoreModule,
     UserModule,
-    CarModule
+    CarModule,
+    OfferModule
   ],
   providers: [],
   bootstrap: [AppComponent,HeaderComponent,FooterComponent]

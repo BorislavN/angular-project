@@ -49,8 +49,9 @@ function getOffer(req, res, next) {
         .then(offerDetails => {
             if (offerDetails) {
                 res.status(200).json(offerDetails);
+            } else {
+                throw new Error(`404${__delimiter}Offer with id: ${offerId} not found!`);
             }
-            throw new Error(`404${__delimiter}Offer with id: ${offerId} not found!`);
         })
         .catch(next);
 };

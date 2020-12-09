@@ -31,12 +31,18 @@ export class AddCarComponent implements OnInit {
       miles: [undefined, [Validators.required, Validators.min(0), Validators.max(500000)]],
       powertrain: ["", [Validators.required, powertrainValidator]],
       transmission: ["", [Validators.required, transmissionValidator]],
-      pictures: ["", [picturesValidator]]
+      pictures: ["", [picturesValidator]],
+      maxSize: [0, [Validators.max(6000000)]]
     });
   }
 
   fileHandler(data: FileList): void {
     this.files = Array.from(data);
+    const total = this.files.map(f => f.size).reduce((a, b) => a + b, 0);
+
+    this.form.get("maxSize").setValue(total);
+    this.form.get("maxSize").markAsTouched();
+
     this.form.get("pictures").setValue(this.files.map(e => e.name).join(";"));
     this.form.get("pictures").markAsTouched();
   };

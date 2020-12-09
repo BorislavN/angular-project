@@ -28,32 +28,4 @@ export class CarService {
     sellCar(data: { carId: String, price: Number, description: String }): Observable<IResponseMessage> {
         return this.http.post<IResponseMessage>(`${apiUrl}/offers`, data, withCredentials);
     }
-
-    // login(data: any): Observable<IUser> {
-    //     return this.http.post(`${authUrl}/login`, data, withCredentials).pipe(
-    //         tap((user: IUser) => this.authService.currentUser = user)
-    //     );
-    // }
-
-    // register(data: any): Observable<IUser> {
-    //     return this.http.post<IUser>(`${authUrl}/register`, data, withCredentials);
-    // }
-
-    // updateProfile(data: any): Observable<IUser> {
-    //     return this.http.put(`${authUrl}/profile`, data, withCredentials).pipe(
-    //         tap((user: IUser) => this.authService.currentUser = user)
-    //     );
-    // }
-
-    // deposit(data: any): Observable<IUser> {
-    //     return this.http.post(`${authUrl}/balance`, data, withCredentials).pipe(
-    //         tap((user: IUser) => this.authService.currentUser = user)
-    //     );
-    // }
-
-    // withdraw(data: any): Observable<IUser> {
-    //     return this.http.delete(`${authUrl}/balance`, withCredentials).pipe(
-    //         tap((user: IUser) => this.authService.currentUser = user)
-    //     );
-    // }
 };

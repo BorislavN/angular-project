@@ -88,7 +88,8 @@ div.col > p{
 
 .description{
     margin: 5px auto;
-    max-height: 160px;
+    height: 170px;
+    width: 100%;
     padding: 5px;
     overflow-y: scroll;
     text-align: left;

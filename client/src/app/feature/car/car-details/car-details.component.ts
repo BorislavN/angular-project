@@ -43,7 +43,7 @@ export class CarDetailsComponent implements OnInit {
       error: (err) => {
         this.router.navigate(['/error'], { queryParams: { error: err.error.message } })
       }
-    })
+    });
   }
 
   toggleForm() {

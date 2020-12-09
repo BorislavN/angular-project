@@ -2,9 +2,9 @@
     <form [formGroup]="form" (ngSubmit)="submitFormHandler()">
         <h3>Add Car</h3>
         <div *ngIf="(errors.length>0)" class="errors">
-                <p *ngFor="let msg of errors">
-                    {{msg}}
-                </p>
+            <p *ngFor="let msg of errors">
+                {{msg}}
+            </p>
         </div>
 
         <div class="form-group">
@@ -66,13 +66,15 @@
             transmission type!</p>
 
         <div class="form-group">
-            <label [class.error-label]="form.get('pictures').touched && form.get('pictures').invalid" class="files"
-                for="pictures">Choose Photos - Selected: {{files.length}}</label>
+            <label
+                [class.error-label]="(form.get('pictures').invalid && form.get('pictures').touched)||(form.get('maxSize').touched&&form.get('maxSize').invalid)"
+                class="files" for="pictures">Choose Photos - Selected: {{files.length}}</label>
             <input hidden type="file" id="pictures" name="pictures" multiple
                 (change)="fileHandler($event.target.files)">
         </div>
-        <p *ngIf="form.get('pictures').invalid && form.get('pictures').touched" class="error-message">Select 1-3
-            pictures!</p>
+        <p *ngIf="(form.get('pictures').invalid && form.get('pictures').touched)||(form.get('maxSize').touched&&form.get('maxSize').invalid)"
+            class="error-message">Select 1-3
+            pictures, max size - 5MB total!</p>
 
         <input [class.disabled]="isLoading || form.invalid" [disabled]="isLoading || form.invalid" class="submit"
             class="submit" type="submit" value="Submit">

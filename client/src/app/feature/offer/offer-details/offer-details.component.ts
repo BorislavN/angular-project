@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/core/auth.service';
+import { IOffer } from 'src/app/shared/interface/offer-details';
+import { parseUrl } from 'src/app/shared/util/url.parser';
 import { OfferService } from '../offer.service';
 
 @Component({
@@ -10,13 +12,42 @@ import { OfferService } from '../offer.service';
   styleUrls: ['./offer-details.component.css']
 })
 export class OfferDetailsComponent implements OnInit {
+  isLoading: boolean;
+  isOwner: boolean;
+  userLoggedIn: boolean;
+  currentOffer: IOffer;
+  mainPictureUrl: String;
 
   constructor(private route: ActivatedRoute, private authService: AuthService,
     private offerService: OfferService, private router: Router, private titleService: Title) {
-
+    this.isLoading = true;
+    this.isOwner = false;
+    this.userLoggedIn = false;
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle("Offer Details");
+    const offerId = this.route.snapshot.params['id'];
+    this.userLoggedIn = this.authService.isLogged;
+
+    this.offerService.getOfferDetails(offerId).subscribe({
+      next: (result) => {
+        this.currentOffer = result;
+        this.isOwner = (result.authorId.username === (this.authService?.currentUser?.username || ""));
+        this.mainPictureUrl = parseUrl(result.carId.pictures[0]);
+        this.isLoading = false;
+      },
+      error: (err) => {
+        this.router.navigate(['/error'], { queryParams: { error: err.error.message } })
+      }
+    });
   }
 
+  transformUrl(data: { url: String }) {
+    return parseUrl(data);
+  }
+
+  toggleMainPicture(path: String) {
+    this.mainPictureUrl = path;
+  }
 }
