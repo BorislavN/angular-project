@@ -1,19 +1,21 @@
-<div *ngIf="isLoading" style="margin: 50px auto;text-align: center;">
-    <app-loading></app-loading>
-</div>
-
-<ng-container *ngIf="!isLoading">
-    <app-base-content *ngIf="(myOffers.length===0)"></app-base-content>
-
-    <ng-container *ngIf="(myOffers.length>0)">
-        <div class="offers">
-            <a *ngFor="let offer of myOffers" class="link"  [routerLink]="['/offers',offer._id]" href="">
-                <p>
-                    <img class="thumbnail" [attr.src]="urlMap[offer._id]" alt="picture">
-                    <span class="tag">{{offer.carId.make}} {{offer.carId.model}}</span>
-                    <span class="price">Price: {{offer.price}}$</span>
-                </p>
-            </a>
-        </div>
+<div class="container">
+    <div *ngIf="isLoading" style="margin: 50px auto;text-align: center;">
+        <app-loading></app-loading>
+    </div>
+    
+    <ng-container *ngIf="!isLoading">
+        <app-base-content *ngIf="(myOffers.length===0)"></app-base-content>
+    
+        <ng-container *ngIf="(myOffers.length>0)">
+            <div class="offers">
+                <a *ngFor="let offer of myOffers" class="link"  [routerLink]="['/offers',offer._id]" href="">
+                    <p>
+                        <img class="thumbnail" [attr.src]="urlMap[offer._id]" alt="picture">
+                        <span class="tag">{{offer.carId.make}} {{offer.carId.model}}</span>
+                        <span class="price">Price: {{offer.price}}$</span>
+                    </p>
+                </a>
+            </div>
+        </ng-container>
     </ng-container>
-</ng-container>
+</div>
