@@ -26,6 +26,7 @@ The expired tokens are cleaned by a Cron job every 12 hours.
 - Offer Details page - the details for the current offer. If the user has submitted more than one picture he can toggle whats displayed in the main picture  container by clicking on the smaller pictures.  
 - All Offers page with pagination  
 - User Profile page  
+- Transfer money menu  
 
 ### Future functionality and pages:  
 - Edit Car page  
@@ -35,8 +36,6 @@ The expired tokens are cleaned by a Cron job every 12 hours.
 - Offer Comments page  
 - Add Comment functionality  
 - Edit User Profile menu  
-- Deposit money menu  
-- Withdraw money menu  
 - Buy Car from offer functionality  
 
 ## 4.Bonuses  
