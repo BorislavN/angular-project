@@ -13,6 +13,7 @@ import { CarService } from '../car.service';
 })
 export class CarDetailsComponent implements OnInit {
   isLoading: boolean;
+  isDeleting:boolean;
   inForm: boolean;
   formLoading: boolean;
   currentCar: ICar;
@@ -21,6 +22,7 @@ export class CarDetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private router: Router, private carService: CarService, private builder: FormBuilder, private titleService: Title) {
     this.isLoading = true;
+    this.isDeleting = false;
     this.formLoading = false;
     this.inForm = false;
 
@@ -65,6 +67,8 @@ export class CarDetailsComponent implements OnInit {
   }
 
   deleteHandler(): void {
+    this.isDeleting=true;
+
     this.carService.deleteCar("sex").subscribe({
       next: (result) => {
         this.router.navigate(['/user/collection']);

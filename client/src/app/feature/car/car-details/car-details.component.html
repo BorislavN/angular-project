@@ -27,6 +27,9 @@
                     <button (click)="deleteHandler()">Delete</button>
                     <button (click)="toggleForm()">Sell</button>
                 </div>
+                <ng-container *ngIf="isDeleting">
+                    <app-loading></app-loading>
+                </ng-container>
             </div>
         </article>
     </ng-container>
