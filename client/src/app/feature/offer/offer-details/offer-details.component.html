@@ -34,7 +34,7 @@
                 <div class="buttons">
                     <ng-container *ngIf="isOwner">
                         <button>Edit</button>
-                        <button>Delete</button>
+                        <button (click)="deleteHandler()">Delete</button>
                     </ng-container>
                     <button *ngIf="(!isOwner&& userLoggedIn)">Buy</button>
                     <button>Comments</button>

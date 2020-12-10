@@ -50,4 +50,15 @@ export class OfferDetailsComponent implements OnInit {
   toggleMainPicture(path: String) {
     this.mainPictureUrl = path;
   }
+
+  deleteHandler(): void {
+    this.offerService.deleteOffer(this.currentOffer._id, this.currentOffer.carId._id).subscribe({
+      next: (result) => {
+        this.router.navigate(['/user/collection']);
+      },
+      error: (err) => {
+        this.router.navigate(['/error'], { queryParams: { error: err.error.message } });
+      }
+    });
+  }
 }

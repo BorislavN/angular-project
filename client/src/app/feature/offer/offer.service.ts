@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { IResponseMessage } from 'src/app/shared/interface/message';
 import { IOffer } from 'src/app/shared/interface/offer-details';
 import { IOffersWithPagination } from 'src/app/shared/interface/offer-pagination';
 import { environment } from 'src/environments/environment';
@@ -18,5 +19,9 @@ export class OfferService {
 
     getAllOffers(page: number): Observable<IOffersWithPagination> {
         return this.http.get<IOffersWithPagination>(`${apiUrl}/offers?page=${page}`);
+    }
+
+    deleteOffer(offerId: String, carId: String): Observable<IResponseMessage> {
+        return this.http.delete<IResponseMessage>(`${apiUrl}/offers/${offerId}?carId=${carId}`,withCredentials);
     }
 };
