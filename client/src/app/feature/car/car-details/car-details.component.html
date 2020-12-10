@@ -24,7 +24,7 @@
                 </div>
                 <div *ngIf="!currentCar.forSale" class="btn-holder">
                     <button>Edit</button>
-                    <button>Delete</button>
+                    <button (click)="deleteHandler()">Delete</button>
                     <button (click)="toggleForm()">Sell</button>
                 </div>
             </div>

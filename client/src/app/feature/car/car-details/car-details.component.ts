@@ -19,7 +19,7 @@ export class CarDetailsComponent implements OnInit {
   imgUrl: String;
   form: FormGroup;
 
-  constructor(private route: ActivatedRoute, private router: Router, private carService: CarService, private builder: FormBuilder, private titleService : Title) {
+  constructor(private route: ActivatedRoute, private router: Router, private carService: CarService, private builder: FormBuilder, private titleService: Title) {
     this.isLoading = true;
     this.formLoading = false;
     this.inForm = false;
@@ -60,6 +60,17 @@ export class CarDetailsComponent implements OnInit {
       },
       error: (err) => {
         this.router.navigate(['/error'], { queryParams: { error: (err?.error?.message || err.message) } })
+      }
+    });
+  }
+
+  deleteHandler(): void {
+    this.carService.deleteCar("sex").subscribe({
+      next: (result) => {
+        this.router.navigate(['/user/collection']);
+      },
+      error: (err) => {
+        this.router.navigate(['/error'], { queryParams: { error: err.error.message } });
       }
     });
   }

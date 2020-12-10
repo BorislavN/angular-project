@@ -28,4 +28,8 @@ export class CarService {
     sellCar(data: { carId: String, price: Number, description: String }): Observable<IResponseMessage> {
         return this.http.post<IResponseMessage>(`${apiUrl}/offers`, data, withCredentials);
     }
+
+    deleteCar(carId: String): Observable<IResponseMessage> {
+        return this.http.delete<IResponseMessage>(`${apiUrl}/users/collection/${carId}`, withCredentials);
+    }
 };
