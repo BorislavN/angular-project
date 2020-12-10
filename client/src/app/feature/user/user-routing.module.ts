@@ -2,6 +2,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from 'src/app/core/guard/auth.guard';
 import { LoginComponent } from './login/login.component';
 import { OfferListComponent } from './offer-list/offer-list.component';
+import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
@@ -29,13 +30,14 @@ const routes: Routes = [
                 data: {
                     isLogged: true,
                 },
+            },
+            {
+                path: 'profile',
+                component: ProfileComponent,
+                data: {
+                    isLogged: true
+                }
             }
-            // {
-            //     path: 'profile',
-            //     component: ProfileComponent,
-            //     data: {
-            //         isLogged: true
-            //     }
         ]
     }
 ];

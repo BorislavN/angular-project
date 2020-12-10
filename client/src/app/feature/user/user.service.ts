@@ -46,4 +46,8 @@ export class UserService {
     getMyOffers(): Observable<IOfferCard[]> {
         return this.http.get<IOfferCard[]>(`${apiUrl}/users/offers`, withCredentials);
     }
+
+    getCurrentUser(): IUser {
+        return this.authService.currentUser;
+    }
 };

@@ -1,0 +1,16 @@
+<div style="margin: 30px auto;text-align: center;">
+    <app-loading *ngIf="isLoading"></app-loading>
+</div>
+
+<article *ngIf="!isLoading" class="profile">
+    <section class="info">
+        <h3>Profile Info:</h3>
+        <p>Username: {{currentUser.username}}</p>
+        <p>Email: {{currentUser.email}}</p>
+        <p>Balance: {{currentUser.balance}}$</p>
+    </section>
+    <section class="buttons">
+        <button>Edit Profile</button>
+        <button>Transfer Money</button>
+    </section>
+</article>

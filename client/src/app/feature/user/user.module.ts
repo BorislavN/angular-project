@@ -7,9 +7,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { OfferListComponent } from './offer-list/offer-list.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent, OfferListComponent],
+  declarations: [LoginComponent, RegisterComponent, OfferListComponent, ProfileComponent],
   imports: [
     CommonModule,
     UserRoutingModule,
