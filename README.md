@@ -24,11 +24,11 @@ The expired tokens are cleaned by a Cron job every 12 hours.
 - Sell Car menu - has validations, the user is redirected to My Offers page after success.  
 - My Offers page - here the user can see his active offers ordered by date descending. If he click on a link he is redirected to the Offer Details page.  
 - Offer Details page - the details for the current offer. If the user has submitted more than one picture he can toggle whats displayed in the main picture  container by clicking on the smaller pictures.  
+- All Offers page with pagination  
 
 ### Future functionality and pages:  
 - Edit Car page  
 - Delete Car functionality  
-- All Offers page with pagination  
 - Edit Offer page  
 - Delete Offer functionality  
 - Offer Comments page  
