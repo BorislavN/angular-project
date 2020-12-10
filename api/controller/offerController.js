@@ -9,7 +9,7 @@ function getAllOffers(req, res, next) {
             if (skipCount < 0 || value < skipCount) {
                 skipCount = 0;
             }
-            return Promise.all([Promise.resolve(value), offerModel.find()
+            return Promise.all([Promise.resolve(value), Promise.resolve((skipCount / 10)+1), offerModel.find()
                 .sort({ createdAt: -1 })
                 .skip(skipCount)
                 .limit(10)
@@ -19,8 +19,8 @@ function getAllOffers(req, res, next) {
                     select: "username"
                 })]);
         })
-        .then(([count, offers]) => {
-            res.status(200).json({ offers, maxPages: Math.ceil((count / 10)) });
+        .then(([count, currentPage, offers]) => {
+            res.status(200).json({ offers, currentPage, maxPages: Math.ceil((count / 10)) });
         })
         .catch(next);
 };

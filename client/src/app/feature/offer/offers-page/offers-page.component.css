@@ -1,0 +1,45 @@
+.offers{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 30px auto;
+}
+
+.offers-page{
+    margin: 40px auto;
+}
+
+.buttons a {
+    display: inline-block;
+    margin: 5px auto;
+    background: linear-gradient(90deg, rgba(52,58,64,0.7) 0%, rgba(59,66,72,0.75) 38%, rgba(108,117,125,0.8) 91%);
+    padding: 15px 30px;
+    font-size: 18px;
+    color:whitesmoke;
+    text-decoration: none;
+    outline: none;
+    
+}
+
+.buttons{
+    text-align: center;
+}
+
+.buttons a.left-button{
+    padding-left: 60px;
+    border-top-left-radius:  25px;
+    border-bottom-left-radius:  25px;
+}
+
+.buttons a.right-button{
+    padding-right: 60px;
+    border-top-right-radius:  25px;
+    border-bottom-right-radius:  25px;
+}
+
+.buttons a.disabled{
+    color: gray;
+    cursor: not-allowed;
+    pointer-events: none;
+}

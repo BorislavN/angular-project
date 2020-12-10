@@ -1,1 +1,22 @@
-<p>offers-page works!</p>
+<div class="container offers-page" style="text-align: center;">
+    <app-loading *ngIf="isLoading"></app-loading>
+
+    <ng-container *ngIf="!isLoading">
+        <app-base-content *ngIf="(offers.length===0)"></app-base-content>
+
+        <ng-container *ngIf="(offers.length>0)">
+            <div class="container offers">
+
+                <app-offer-card *ngFor="let offer of offers" [offer]="offer"></app-offer-card>
+
+            </div>
+            <div class="buttons">
+                <a [class.disabled]="currentPage===1" class="left-button"
+                    [routerLink]="['/offers']" [queryParams]="{page:currentPage-1}" href="">Prev</a>
+                <a [class.disabled]="currentPage===maxPages"
+                    class="right-button" [routerLink]="['/offers']" [queryParams]="{page:currentPage+1}"
+                    href="">Next</a>
+            </div>
+        </ng-container>
+    </ng-container>
+</div>

@@ -1,1 +1,12 @@
-<p>offer-card works!</p>
+<a class="offer-link" [routerLink]="['/offers',offer._id]" href="">
+    <article class="offer-card">
+        <div class="wrapper">
+            <img [attr.src]="picUrl" alt="picture">
+        </div>
+        <h4>{{offer.carId.make}} {{offer.carId.model}}</h4>
+        <p>Price: {{offer.price}}$</p>
+        <p>Seller: {{offer.authorId.username}}</p>
+        <p>Year: {{offer.carId.year}}</p>
+        <p class="last">{{offer.createdAt | dateAgo}}</p>
+    </article>
+</a>
