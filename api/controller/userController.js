@@ -99,8 +99,9 @@ function withdrawMoney(req, res, next) {
                 result.save();
 
                 res.status(200).send({ "username": result.username,"email":result.email,"balance":result.balance,"_id":result._id});
+            }else{
+                throw new Error(`400${__delimiter}You can't withdraw more founds than you have - balance: ${result.balance}`);
             }
-            throw new Error(`400${__delimiter}You can't withdraw more founds than you have - balance: ${result.balance}`);
         })
         .catch(next);
 };

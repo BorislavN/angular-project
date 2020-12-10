@@ -1,6 +1,6 @@
 article.profile{
     margin: 50px auto;
-    max-width: 600px;
+    max-width: 700px;
     min-height: 250px;
     display: flex;
     justify-content: space-between;
@@ -14,6 +14,10 @@ article.profile{
 
 .profile > section{
     flex-grow: 1;
+}
+
+.profile .info{
+    flex-grow: 2;
 }
 
 section > p {
@@ -31,7 +35,7 @@ h3{
 
 button{
     cursor: pointer;
-    width: 100%;
+    width: 90%;
     margin: 5px 10px;
     padding: 13px 40px;
     font-size: 18px;
@@ -44,13 +48,21 @@ button{
 }
 
 .buttons{
-    max-width: 270px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items:center;
 }
 
 .buttons button:hover{
     background: linear-gradient(90deg, rgba(87,31,37,1) 15%, rgba(32,37,38,1) 49%, rgba(85,31,37,1) 94%);
 } 
+
+form {
+    padding: 10px 20px;
+    margin: 0px;
+}
+
+form .form-group input ,form  .form-group select {
+    width: 200px;
+}

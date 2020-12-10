@@ -19,7 +19,7 @@ authenticationRouter.post("/balance",
     authValidator.transfer,
     checkForErrors, userController.depositMoney);// deposit money //AUTH// //DONE
 
-authenticationRouter.delete("/balance",
+authenticationRouter.put("/balance",
     authUser(),
     authValidator.transfer,
     checkForErrors, userController.withdrawMoney);// withdraw money //AUTH// //DONE

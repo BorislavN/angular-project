@@ -31,14 +31,14 @@ export class UserService {
         );
     }
 
-    deposit(data: any): Observable<IUser> {
+    deposit(data: {transaction:number}): Observable<IUser> {
         return this.http.post(`${authUrl}/balance`, data, withCredentials).pipe(
             tap((user: IUser) => this.authService.currentUser = user)
         );
     }
 
-    withdraw(data: any): Observable<IUser> {
-        return this.http.delete(`${authUrl}/balance`, withCredentials).pipe(
+    withdraw(data:  {transaction:number}): Observable<IUser> {
+        return this.http.put(`${authUrl}/balance`,data, withCredentials).pipe(
             tap((user: IUser) => this.authService.currentUser = user)
         );
     }
