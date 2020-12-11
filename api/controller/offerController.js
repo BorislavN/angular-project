@@ -119,7 +119,7 @@ function buyCarFromOffer(req, res, next) {
     offerModel.findById(offerId)
         .then((offer) => {
             if (offer) {
-                if (userId === offer.authorId) {
+                if (userId.equals(offer.authorId)) {
                     throw new Error(`400${__delimiter}You can't buy your own car!`);
                 }
                 return Promise.all([userModel.findById(userId),
