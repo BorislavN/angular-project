@@ -32,11 +32,11 @@ The expired tokens are cleaned by a Cron job every 12 hours.
 - Buy Car from offer functionality  
 - Edit Offer page  
 - Edit User Profile menu  
+- Add Comment functionality  
+- Offer Comments page  
 
 ### Future functionality and pages:  
 - Edit Car page  
-- Offer Comments page  
-- Add Comment functionality  
 
 ## 4.Bonuses  
 I think my Cloudinary picture upload counts as a bonus - Use a file storage cloud API, e.g. Dropbox, Google Drive or other for storing the files.  
