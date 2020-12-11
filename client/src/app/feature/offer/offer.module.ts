@@ -7,9 +7,10 @@ import { OfferCardComponent } from './offer-card/offer-card.component';
 import { OffersPageComponent } from './offers-page/offers-page.component';
 import { OfferService } from './offer.service';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { EditComponent } from './edit/edit.component';
 
 @NgModule({
-  declarations: [OfferDetailsComponent, OfferCardComponent, OffersPageComponent],
+  declarations: [OfferDetailsComponent, OfferCardComponent, OffersPageComponent, EditComponent],
   imports: [
     CommonModule,
     OfferRoutingModule,

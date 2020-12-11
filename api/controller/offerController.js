@@ -9,7 +9,7 @@ function getAllOffers(req, res, next) {
             if (skipCount < 0 || value < skipCount) {
                 skipCount = 0;
             }
-            return Promise.all([Promise.resolve(value), Promise.resolve((skipCount / 10)+1), offerModel.find()
+            return Promise.all([Promise.resolve(value), Promise.resolve((skipCount / 10) + 1), offerModel.find()
                 .sort({ createdAt: -1 })
                 .skip(skipCount)
                 .limit(10)
@@ -83,12 +83,13 @@ function editOffer(req, res, next) {
     const { offerId } = req.params;
     const { userId } = req.user;
 
-    offerModel.findOneAndUpdate({ _id: offerId, authorId: userId }, { description, price })
+    offerModel.findOneAndUpdate({ _id: offerId, authorId: userId }, { description, price }, { new: true })
         .then(result => {
             if (result) {
-                res.status(200).json({ "message": `Offer with id: ${offerId} updated successfully!` });
+                res.status(200).json({ "price": result.price, "description": result.description });
+            } else {
+                throw new Error(`404${__delimiter}Offer with that id does not exist or you don't own the rights to it!`);
             }
-            throw new Error(`404${__delimiter}Offer with that id does not exist or you don't own the rights to it!`);
         })
         .catch(next);
 };

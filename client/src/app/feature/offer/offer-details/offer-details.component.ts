@@ -12,6 +12,7 @@ import { OfferService } from '../offer.service';
   styleUrls: ['./offer-details.component.css']
 })
 export class OfferDetailsComponent implements OnInit {
+  isInEditForm: boolean;
   isLoading: boolean;
   notEnoughMoney: boolean;
   isOwner: boolean;
@@ -25,6 +26,7 @@ export class OfferDetailsComponent implements OnInit {
     this.isOwner = false;
     this.userLoggedIn = false;
     this.notEnoughMoney = false;
+    this.isInEditForm = false;
   }
 
   ngOnInit(): void {
@@ -83,5 +85,20 @@ export class OfferDetailsComponent implements OnInit {
 
   hideMessage(): void {
     this.notEnoughMoney = false;
+  }
+
+  showForm(): void {
+    this.isInEditForm = true;
+  }
+
+  onHideForm(event: boolean): void {
+    if (event) {
+      this.isInEditForm = false;
+    }
+  }
+
+  onEdited(data: { price: number, description: string }): void {
+    this.currentOffer.price = data.price;
+    this.currentOffer.description = data.description;
   }
 }

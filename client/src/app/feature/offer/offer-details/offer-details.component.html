@@ -5,43 +5,52 @@
 
     <ng-container *ngIf="!isLoading">
 
-        <article class="details">
-            <section>
-                <div class="wrapper">
-                    <img [attr.src]="mainPictureUrl" alt="picture">
-                </div>
-                <div class="icons">
-                    <img *ngFor="let icon of currentOffer.carId.pictures; index as i" [attr.src]="transformUrl(icon)"
-                        alt="icon" [class.left]="i===0" (click)="toggleMainPicture($event.target.src)">
-                </div>
-            </section>
-            <section class="text">
-                <h3>Offer Details</h3>
-                <div class="content">
-                    <div class="col">
-                        <p>Seller: {{currentOffer.authorId.username}}</p>
-                        <p>Make: {{currentOffer.carId.make}}</p>
-                        <p>Miles: {{currentOffer.carId.miles}}</p>
-                        <p>Powertrain: {{currentOffer.carId.powertrain}}</p>
+        <ng-container *ngIf="!isInEditForm">
+            <article class="details">
+                <section>
+                    <div class="wrapper">
+                        <img [attr.src]="mainPictureUrl" alt="picture">
                     </div>
-                    <div class="col">
-                        <p>Price: {{currentOffer.price}}$</p>
-                        <p>Model: {{currentOffer.carId.model}}</p>
-                        <p>Year: {{currentOffer.carId.year}}</p>
-                        <p>Transmission: {{currentOffer.carId.transmission}}</p>
+                    <div class="icons">
+                        <img *ngFor="let icon of currentOffer.carId.pictures; index as i"
+                            [attr.src]="transformUrl(icon)" alt="icon" [class.left]="i===0"
+                            (click)="toggleMainPicture($event.target.src)">
                     </div>
-                </div>
-                <p class="description">{{currentOffer.description||"No description"}}</p>
-                <div class="buttons">
-                    <ng-container *ngIf="isOwner">
-                        <button>Edit</button>
-                        <button (click)="deleteHandler()">Delete</button>
-                    </ng-container>
-                    <button *ngIf="(!isOwner&& userLoggedIn)" [class.no-money]="notEnoughMoney" (click)="buyCarHandler()">Buy</button>
-                    <button>Comments</button>
-                </div>
-            </section>
-        </article>
-        <p *ngIf="notEnoughMoney" (click)="hideMessage()" class="error-message poor">You don't have enough money in your balance to buy this car!</p>
+                </section>
+                <section class="text">
+                    <h3>Offer Details</h3>
+                    <div class="content">
+                        <div class="col">
+                            <p>Seller: {{currentOffer.authorId.username}}</p>
+                            <p>Make: {{currentOffer.carId.make}}</p>
+                            <p>Miles: {{currentOffer.carId.miles}}</p>
+                            <p>Powertrain: {{currentOffer.carId.powertrain}}</p>
+                        </div>
+                        <div class="col">
+                            <p>Price: {{currentOffer.price}}$</p>
+                            <p>Model: {{currentOffer.carId.model}}</p>
+                            <p>Year: {{currentOffer.carId.year}}</p>
+                            <p>Transmission: {{currentOffer.carId.transmission}}</p>
+                        </div>
+                    </div>
+                    <p class="description">{{currentOffer.description||"No description"}}</p>
+                    <div class="buttons">
+                        <ng-container *ngIf="isOwner">
+                            <button (click)="showForm()">Edit</button>
+                            <button (click)="deleteHandler()">Delete</button>
+                        </ng-container>
+                        <button *ngIf="(!isOwner&& userLoggedIn)" [class.no-money]="notEnoughMoney"
+                            (click)="buyCarHandler()">Buy</button>
+                        <button>Comments</button>
+                    </div>
+                </section>
+            </article>
+            <p *ngIf="notEnoughMoney" (click)="hideMessage()" class="error-message poor">You don't have enough money in
+                your
+                balance to buy this car!</p>
+        </ng-container>
+
+        <app-edit *ngIf="isInEditForm" [offer]="currentOffer" (onToggleForm)="onHideForm($event)"
+            (onEditResult)="onEdited($event)"></app-edit>
     </ng-container>
 </div>

@@ -26,6 +26,10 @@ export class OfferService {
     }
 
     buyFromOffer(offerId: String): Observable<IResponseMessage> {
-        return this.http.post<IResponseMessage>(`${apiUrl}/offers/${offerId}`,{}, withCredentials);
+        return this.http.post<IResponseMessage>(`${apiUrl}/offers/${offerId}`, {}, withCredentials);
+    }
+
+    editOffer(offerId: string, data: { price: number, carId: string, description: string }): Observable<{ price: number, description: string }> {
+        return this.http.put<{ price: number, description: string }>(`${apiUrl}/offers/${offerId}`, data, withCredentials);
     }
 };
