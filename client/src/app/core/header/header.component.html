@@ -5,7 +5,7 @@
         </h1>
 
         <ul class="flex-between link-list" *ngIf="!isLogged">
-            <li><a routerLink="/offers" href="" routerLinkActive="active">Offers</a></li>
+            <li><a routerLink="/offers" href="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" >Offers</a></li>
             <li><a routerLink="/user/login" href="" routerLinkActive="active">Login</a></li>
             <li><a routerLink="/user/register" href="" routerLinkActive="active">Register</a></li>
         </ul>

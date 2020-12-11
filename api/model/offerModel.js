@@ -28,8 +28,8 @@ const offerSchema = new mongoose.Schema({
     }
 });
 
-offerSchema.pre("deleteOne", { document: true, query: false }, function (next) {
-    commentModel.deleteMany({ offerId: this._id }, (err) => {
+offerSchema.pre("deleteOne", function (next) {
+    commentModel.deleteMany({ offerId: this.getQuery()._id }, (err) => {
         if (err) {
             next(err);
         }

@@ -4,9 +4,10 @@ function getAllComments(req, res, next) {
     const { offerId } = req.params;
 
     commentModel.find({ offerId })
+        .sort({ createdAt: -1 })
         .populate({
             path: "authorId",
-            select: "-password"
+            select: "username"
         })
         .then((comments) => {
             res.status(200).json(comments);
@@ -20,8 +21,16 @@ function addComment(req, res, next) {
     const { text } = req.body;
 
     commentModel.create({ offerId, authorId: userId, text })
-        .then((newComment) => {
-            res.status(201).json(newComment);
+        .then((data) => {
+            return Promise.all([commentModel.find({ offerId })
+                .sort({ createdAt: -1 })
+                .populate({
+                    path: "authorId",
+                    select: "username"
+                })]);
+        })
+        .then(([comments]) => {
+            res.status(201).json(comments);
         })
         .catch(next);
 };

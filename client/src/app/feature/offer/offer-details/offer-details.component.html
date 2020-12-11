@@ -41,7 +41,7 @@
                         </ng-container>
                         <button *ngIf="(!isOwner&& userLoggedIn)" [class.no-money]="notEnoughMoney"
                             (click)="buyCarHandler()">Buy</button>
-                        <button>Comments</button>
+                        <button (click)="navigateToComments()">Comments</button>
                     </div>
                 </section>
             </article>

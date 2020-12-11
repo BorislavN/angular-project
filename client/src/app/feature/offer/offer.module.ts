@@ -8,9 +8,12 @@ import { OffersPageComponent } from './offers-page/offers-page.component';
 import { OfferService } from './offer.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { EditComponent } from './edit/edit.component';
+import { CommentsComponent } from './comments/comments.component';
+import { CommentService } from './comment.service';
+import { CommentResolver } from './comment.resolve';
 
 @NgModule({
-  declarations: [OfferDetailsComponent, OfferCardComponent, OffersPageComponent, EditComponent],
+  declarations: [OfferDetailsComponent, OfferCardComponent, OffersPageComponent, EditComponent, CommentsComponent],
   imports: [
     CommonModule,
     OfferRoutingModule,
@@ -18,7 +21,7 @@ import { EditComponent } from './edit/edit.component';
     SharedModule
   ],
   providers: [
-    OfferService
+    OfferService, CommentService, CommentResolver
   ]
 })
 export class OfferModule { }

@@ -101,4 +101,8 @@ export class OfferDetailsComponent implements OnInit {
     this.currentOffer.price = data.price;
     this.currentOffer.description = data.description;
   }
+
+  navigateToComments():void{
+    this.router.navigate(['/offers',this.currentOffer._id,'comments']);
+  }
 }
