@@ -1,8 +1,7 @@
 <div style="margin: 30px auto;text-align: center;">
     <app-loading *ngIf="isLoading"></app-loading>
 </div>
-
-<article *ngIf="!isLoading" class="profile">
+<article *ngIf="!isLoading&&!showEditForm" class="profile">
     <section class="info">
         <h3>Profile Info:</h3>
         <p>Username: {{currentUser.username}}</p>
@@ -11,7 +10,7 @@
     </section>
     <section class="buttons">
         <ng-container *ngIf="!inForm">
-            <button>Edit Profile</button>
+            <button (click)="toggleEditForm()">Edit Profile</button>
             <button (click)="toggleForm()">Transfer Money</button>
         </ng-container>
 
@@ -38,7 +37,7 @@
                 must be 1 - 3 000 000$!</p>
             <p *ngIf="tooBig" class="error-message">Balance not enough!</p>
 
-            <input [class.disabled]="formLoading || form.invalid" [disabled]="formLoading || form.invalid"
+            <input [class.disabled]="formLoading || form.invalid " [disabled]="formLoading || form.invalid"
                 class="submit" class="submit" type="submit" value="Submit">
 
             <ng-container *ngIf="formLoading">
@@ -47,3 +46,8 @@
         </form>
     </section>
 </article>
+
+<div *ngIf="showEditForm" style="margin: 50px auto;text-align: center;">
+    <app-edit [info]="currentUser" (onCloseForm)="hideEditForm($event)" (onEditedData)="updateProfileData($event)">
+    </app-edit>
+</div>

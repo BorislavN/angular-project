@@ -16,7 +16,7 @@ const uniqueUsernameValidation = body('username').custom(value => {
 
 const newUsernameValidation = body('username').custom((value, { req }) => {
     return userModel.findOne({ username: value }).then(user => {
-        if (user && (req.user.userId !== user._id)) {
+        if (user && (!req.user.userId.equals(user._id))) {
             return Promise.reject('User with that username already exists!');
         }
     });
@@ -38,7 +38,7 @@ const uniqueEmailValidation = body('email').custom(value => {
 
 const newEmailValidation = body('email').custom((value, { req }) => {
     return userModel.findOne({ email: value }).then(user => {
-        if (user && (req.user.userId !== user._id)) {
+        if (user && (!req.user.userId.equals(user._id))) {
             return Promise.reject('User with that e-mail already exists!');
         }
     });

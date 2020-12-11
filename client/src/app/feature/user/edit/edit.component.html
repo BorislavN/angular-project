@@ -1,0 +1,31 @@
+<form [formGroup]="form" (ngSubmit)="submitFormHandler()">
+    <h3>Edit Profile</h3>
+
+    <input (click)="toggleForm()" class="submit" type="button" value="Close Form">
+
+    <div *ngIf="(errors.length>0)" class="errors">
+        <p *ngFor="let msg of errors">
+            {{msg}}
+        </p>
+    </div>
+
+    <div class="form-group">
+        <label [class.error-label]="form.get('username').touched && form.get('username').invalid" for="username"><i
+                class="fas fa-user"></i></label>
+        <input type="text" id="username" name="username" formControlName="username">
+    </div>
+    <p class="error-message" *ngIf="form.get('username').touched && form.get('username').invalid">Username must be 4-20
+        symbols!</p>
+    <div class="form-group">
+        <label [class.error-label]="form.get('email').touched && form.get('email').invalid" for="email"><i
+                class="fas fa-envelope"></i></label>
+        <input type="email" id="email" name="email" formControlName="email">
+    </div>
+    <p *ngIf="form.get('email').touched && form.get('email').invalid" class="error-message">Email is invalid!</p>
+    <input [class.disabled]="editFormLoading || form.invalid"
+        [disabled]="editFormLoading || form.invalid" class="submit" class="submit" type="submit"
+        value="Submit">
+
+    <ng-container *ngIf="editFormLoading">
+        <app-loading></app-loading>
+    </ng-container>

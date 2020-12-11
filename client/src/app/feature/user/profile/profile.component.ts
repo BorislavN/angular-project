@@ -14,6 +14,7 @@ import { UserService } from '../user.service';
 export class ProfileComponent implements OnInit {
   isLoading: boolean;
   inForm: boolean;
+  showEditForm: boolean;
   tooBig: boolean;
   formLoading: boolean;
   currentUser: IUser;
@@ -22,6 +23,7 @@ export class ProfileComponent implements OnInit {
   constructor(private userService: UserService, private titleService: Title, private builder: FormBuilder, private router: Router) {
     this.isLoading = true;
     this.inForm = false;
+    this.showEditForm = false;
     this.formLoading = false;
 
     this.form = this.builder.group({
@@ -36,14 +38,14 @@ export class ProfileComponent implements OnInit {
     this.currentUser = this.userService.getCurrentUser();
   }
 
-  toggleForm() {
+  toggleForm(): void {
     this.inForm = !(this.inForm);
   }
 
   private transfer(method$: Observable<IUser>): void {
     method$.subscribe({
       next: (result) => {
-        this.inForm=false;
+        this.inForm = false;
         this.formLoading = false;
         this.currentUser = result;
         this.form.get("transaction").reset();
@@ -54,7 +56,7 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  submitFormHandler() {
+  submitFormHandler(): void {
     this.formLoading = true;
     this.tooBig = false;
 
@@ -72,5 +74,20 @@ export class ProfileComponent implements OnInit {
         this.transfer(this.userService.withdraw({ transaction }));
       }
     }
+  }
+
+  toggleEditForm(): void {
+    this.showEditForm = true;
+  }
+
+  hideEditForm(value: boolean): void {
+    if (value) {
+      this.showEditForm = false;
+    }
+  }
+
+  updateProfileData(data: { "username": String, "email": String }): void {
+    this.currentUser.username = data.username;
+    this.currentUser.email = data.email;
   }
 }
