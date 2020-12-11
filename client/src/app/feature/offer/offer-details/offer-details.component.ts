@@ -13,6 +13,7 @@ import { OfferService } from '../offer.service';
 })
 export class OfferDetailsComponent implements OnInit {
   isLoading: boolean;
+  notEnoughMoney: boolean;
   isOwner: boolean;
   userLoggedIn: boolean;
   currentOffer: IOffer;
@@ -23,6 +24,7 @@ export class OfferDetailsComponent implements OnInit {
     this.isLoading = true;
     this.isOwner = false;
     this.userLoggedIn = false;
+    this.notEnoughMoney = false;
   }
 
   ngOnInit(): void {
@@ -60,5 +62,26 @@ export class OfferDetailsComponent implements OnInit {
         this.router.navigate(['/error'], { queryParams: { error: err.error.message } });
       }
     });
+  }
+
+  buyCarHandler(): void {
+    this.offerService.buyFromOffer(this.currentOffer._id).subscribe({
+      next: (result) => {
+        this.router.navigate(['/user/collection']);
+      },
+      error: (err) => {
+        const message = err.error.message || "Unexpected error occurred! Sorry for the inconvenience!";
+
+        if ("Your funds are not sufficient to buy this car!" === message) {
+          this.notEnoughMoney = true;
+        } else {
+          this.router.navigate(['/error'], { queryParams: { error: message } });
+        }
+      }
+    });
+  }
+
+  hideMessage(): void {
+    this.notEnoughMoney = false;
   }
 }

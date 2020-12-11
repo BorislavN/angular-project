@@ -22,6 +22,10 @@ export class OfferService {
     }
 
     deleteOffer(offerId: String, carId: String): Observable<IResponseMessage> {
-        return this.http.delete<IResponseMessage>(`${apiUrl}/offers/${offerId}?carId=${carId}`,withCredentials);
+        return this.http.delete<IResponseMessage>(`${apiUrl}/offers/${offerId}?carId=${carId}`, withCredentials);
+    }
+
+    buyFromOffer(offerId: String): Observable<IResponseMessage> {
+        return this.http.post<IResponseMessage>(`${apiUrl}/offers/${offerId}`,{}, withCredentials);
     }
 };

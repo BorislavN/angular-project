@@ -4,6 +4,7 @@
     </div>
 
     <ng-container *ngIf="!isLoading">
+
         <article class="details">
             <section>
                 <div class="wrapper">
@@ -36,10 +37,11 @@
                         <button>Edit</button>
                         <button (click)="deleteHandler()">Delete</button>
                     </ng-container>
-                    <button *ngIf="(!isOwner&& userLoggedIn)">Buy</button>
+                    <button *ngIf="(!isOwner&& userLoggedIn)" [class.no-money]="notEnoughMoney" (click)="buyCarHandler()">Buy</button>
                     <button>Comments</button>
                 </div>
             </section>
         </article>
+        <p *ngIf="notEnoughMoney" (click)="hideMessage()" class="error-message poor">You don't have enough money in your balance to buy this car!</p>
     </ng-container>
 </div>
