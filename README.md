@@ -30,10 +30,10 @@ The expired tokens are cleaned by a Cron job every 12 hours.
 - Delete Car functionality  
 - Delete Offer functionality  
 - Buy Car from offer functionality  
+- Edit Offer page  
 
 ### Future functionality and pages:  
 - Edit Car page  
-- Edit Offer page  
 - Offer Comments page  
 - Add Comment functionality  
 - Edit User Profile menu  
