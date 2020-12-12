@@ -34,13 +34,7 @@ The expired tokens are cleaned by a Cron job every 12 hours.
 - Edit User Profile menu  
 - Add Comment functionality  
 - Offer Comments page  
-
-### Future functionality and pages:  
 - Edit Car page  
 
 ## 4.Bonuses  
 I think my Cloudinary picture upload counts as a bonus - Use a file storage cloud API, e.g. Dropbox, Google Drive or other for storing the files.  
-
-## 5.Finally  
-I'll continue working on the project. Hopefully by the time of the Project Defence i'll be done with most of the TODO-s.  
-
