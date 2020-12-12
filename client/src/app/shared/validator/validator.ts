@@ -16,12 +16,17 @@ export function transmissionValidator(type: AbstractControl): ValidationErrors |
     return ["Manual", "Automatic"].includes(type.value) ? null : { transmissionValidator: true };
 };
 
-export function picturesValidator(pics: AbstractControl): ValidationErrors | null {
-    const arr = pics.value.split(";");
-    const resultArrSize = arr.filter(e => e.includes(".jpg") || e.includes(".png")).length;
+export function picturesValidator(min: number) {
+    return function validatePictures(pics: AbstractControl): ValidationErrors | null {
+        const arr = pics.value.split(";").filter(a=> ""!==a.trim());
+        const resultArrSize = arr.filter(e => e.includes(".jpg") || e.includes(".png")).length;
 
-    const isOneToThree = arr.length;
-    const isRightExtension = resultArrSize === arr.length;
+        const isOneToThree = (arr.length >= min && arr.length <= 3);
+        const isRightExtension = resultArrSize === arr.length;
 
-    return (isOneToThree&&isRightExtension)? null : { picturesValidator: true };
+        console.log("length ",arr.length);
+        
+
+        return (isOneToThree && isRightExtension) ? null : { picturesValidator: true };
+    };
 };

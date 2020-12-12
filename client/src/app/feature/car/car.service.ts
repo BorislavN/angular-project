@@ -32,4 +32,8 @@ export class CarService {
     deleteCar(carId: String): Observable<IResponseMessage> {
         return this.http.delete<IResponseMessage>(`${apiUrl}/users/collection/${carId}`, withCredentials);
     }
+
+    editCar(id: String, data: FormData): Observable<ICar> {
+        return this.http.put<ICar>(`${apiUrl}/users/collection/${id}`, data, withCredentials);
+    }
 };

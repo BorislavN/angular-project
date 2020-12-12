@@ -1,19 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { ICar } from 'src/app/shared/interface/car-details';
 import { picturesValidator, powertrainValidator, transmissionValidator } from 'src/app/shared/validator/validator';
 import { CarService } from '../car.service';
 
 @Component({
-  selector: 'app-add-car',
-  templateUrl: './add-car.component.html',
-  styleUrls: ['./add-car.component.css']
+  selector: 'app-edit-car',
+  templateUrl: './edit-car.component.html',
+  styleUrls: ['./edit-car.component.css']
 })
+export class EditCarComponent implements OnInit {
+  @Input('currentCar') currentCar: ICar;
+  @Output() onHideEditForm = new EventEmitter<boolean>();
+  @Output() onEdited = new EventEmitter<ICar>();
 
-export class AddCarComponent implements OnInit {
   currentYear: number;
-  isLoading: boolean;
+  editFormLoading: boolean;
   form: FormGroup;
   errors: String[];
   files: File[];
@@ -22,19 +26,27 @@ export class AddCarComponent implements OnInit {
     this.errors = [];
     this.files = [];
     this.currentYear = new Date().getFullYear();
-    this.isLoading = false;
+    this.editFormLoading = false;
+  };
+
+  ngOnInit(): void {
+    this.titleService.setTitle("Edit Car");
 
     this.form = this.builder.group({
-      make: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(10)]],
-      model: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(20)]],
-      year: [undefined, [Validators.required, Validators.min(1910), Validators.max(this.currentYear)]],
-      miles: [undefined, [Validators.required, Validators.min(0), Validators.max(500000)]],
-      powertrain: ["", [Validators.required, powertrainValidator]],
-      transmission: ["", [Validators.required, transmissionValidator]],
-      pictures: ["", [picturesValidator(1)]],
+      make: [this.currentCar.make, [Validators.required, Validators.minLength(1), Validators.maxLength(10)]],
+      model: [this.currentCar.model, [Validators.required, Validators.minLength(1), Validators.maxLength(20)]],
+      year: [this.currentCar.year, [Validators.required, Validators.min(1910), Validators.max(this.currentYear)]],
+      miles: [this.currentCar.miles, [Validators.required, Validators.min(0), Validators.max(500000)]],
+      powertrain: [this.currentCar.powertrain, [Validators.required, powertrainValidator]],
+      transmission: [this.currentCar.transmission, [Validators.required, transmissionValidator]],
+      pictures: ["", [picturesValidator(0)]],
       maxSize: [0, [Validators.max(6000000)]]
     });
-  }
+  };
+
+  private sendData(data: ICar) {
+    this.onEdited.emit(data);
+  };
 
   fileHandler(data: FileList): void {
     this.files = Array.from(data);
@@ -47,13 +59,8 @@ export class AddCarComponent implements OnInit {
     this.form.get("pictures").markAsTouched();
   };
 
-
-  ngOnInit(): void {
-    this.titleService.setTitle("Add Car");
-  }
-
   submitFormHandler(): void {
-    this.isLoading = true;
+    this.editFormLoading = true;
     this.errors = [];
 
     let formData = new FormData();
@@ -68,14 +75,14 @@ export class AddCarComponent implements OnInit {
         formData.set(key, formValue[key]);
       }
     }
-    this.carService.addCar(formData).subscribe({
+    this.carService.editCar(this.currentCar._id, formData).subscribe({
       next: (result) => {
-        this.isLoading = false;
-        this.router.navigateByUrl("user/collection");
+        this.editFormLoading = false;
+        this.sendData(result);
       },
       error: (err) => {
         let messages = err.error?.errors || [];
-        this.isLoading = false;
+        this.editFormLoading = false;
 
         if (messages.length === 0) {
           this.router.navigate(['/error'], { queryParams: { error: err.error.message } })
@@ -86,5 +93,9 @@ export class AddCarComponent implements OnInit {
         });
       }
     });
+  };
+
+  toggleForm(): void {
+    this.onHideEditForm.emit(true);
   };
 };

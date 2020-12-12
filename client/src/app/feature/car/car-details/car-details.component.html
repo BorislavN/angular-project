@@ -3,62 +3,72 @@
         <app-loading></app-loading>
     </div>
 
-    <ng-container *ngIf="!isLoading&&!inForm">
-        <article class="details">
-            <div class="wrapper">
-                <img [attr.src]="imgUrl" alt="picture">
-            </div>
-            <div class="content">
-                <h3>Car Details</h3>
-                <div class="text">
-                    <div class="col">
-                        <p>Make: {{currentCar.make}}</p>
-                        <p>Miles: {{currentCar.miles}}</p>
-                        <p>Powertrain: {{currentCar.powertrain}}</p>
-                    </div>
-                    <div class="col">
-                        <p>Model: {{currentCar.model}}</p>
-                        <p>Year: {{currentCar.year}}</p>
-                        <p>Transmission: {{currentCar.transmission}}</p>
-                    </div>
+    <ng-container *ngIf="!inEditForm">
+
+        <ng-container *ngIf="!isLoading&&!inForm">
+            <article class="details">
+                <div class="wrapper">
+                    <img [attr.src]="imgUrl" alt="picture">
                 </div>
-                <div *ngIf="!currentCar.forSale" class="btn-holder">
-                    <button>Edit</button>
-                    <button (click)="deleteHandler()">Delete</button>
-                    <button (click)="toggleForm()">Sell</button>
+                <div class="content">
+                    <h3>Car Details</h3>
+                    <div class="text">
+                        <div class="col">
+                            <p>Make: {{currentCar.make}}</p>
+                            <p>Miles: {{currentCar.miles}}</p>
+                            <p>Powertrain: {{currentCar.powertrain}}</p>
+                        </div>
+                        <div class="col">
+                            <p>Model: {{currentCar.model}}</p>
+                            <p>Year: {{currentCar.year}}</p>
+                            <p>Transmission: {{currentCar.transmission}}</p>
+                        </div>
+                    </div>
+                    <div *ngIf="!currentCar.forSale" class="btn-holder">
+                        <button (click)="toggleEditForm()">Edit</button>
+                        <button (click)="deleteHandler()">Delete</button>
+                        <button (click)="toggleForm()">Sell</button>
+                    </div>
+                    <ng-container *ngIf="isDeleting">
+                        <app-loading></app-loading>
+                    </ng-container>
                 </div>
-                <ng-container *ngIf="isDeleting">
-                    <app-loading></app-loading>
-                </ng-container>
+            </article>
+        </ng-container>
+
+        <form *ngIf="inForm" [formGroup]="form" (ngSubmit)="submitFormHandler()">
+            <input (click)="toggleForm()" class="submit" type="button" value="Hide Form">
+            <h3>Create Offer</h3>
+            <div class="form-group">
+                <label [class.error-label]="form.get('price').touched && form.get('price').invalid"
+                    for="price">Price:</label>
+                <input type="number" id="price" name="price" placeholder="Enter price" formControlName="price"
+                    step="10">
             </div>
-        </article>
+            <p *ngIf="form.get('price').touched && form.get('price').invalid" class="error-message">Price should be
+                between
+                100 - 5 000 000</p>
+            <div class="form-group description">
+                <label [class.error-label]="form.get('description').touched && form.get('description').invalid"
+                    class="description-label" for="description">Description:</label>
+                <textarea id="description" name="description" placeholder="Description is optional ..." cols="30"
+                    rows="5" formControlName="description"></textarea>
+            </div>
+            <p *ngIf="form.get('description').touched && form.get('description').invalid" class="error-message">
+                Description
+                can't be longer than 750
+                symbols!</p>
+
+            <input [class.disabled]="formLoading || form.invalid" [disabled]="formLoading || form.invalid"
+                class="submit" type="submit" value="Submit">
+
+            <ng-container *ngIf="formLoading">
+                <app-loading></app-loading>
+            </ng-container>
+        </form>
+
     </ng-container>
 
-    <form *ngIf="inForm" [formGroup]="form" (ngSubmit)="submitFormHandler()">
-        <input (click)="toggleForm()" class="submit" type="button" value="Hide Form">
-        <h3>Create Offer</h3>
-        <div class="form-group">
-            <label [class.error-label]="form.get('price').touched && form.get('price').invalid"
-                for="price">Price:</label>
-            <input type="number" id="price" name="price" placeholder="Enter price" formControlName="price" step="10">
-        </div>
-        <p *ngIf="form.get('price').touched && form.get('price').invalid" class="error-message">Price should be between
-            100 - 5 000 000</p>
-        <div class="form-group description">
-            <label [class.error-label]="form.get('description').touched && form.get('description').invalid"
-                class="description-label" for="description">Description:</label>
-            <textarea id="description" name="description" placeholder="Description is optional ..." cols="30" rows="5"
-                formControlName="description"></textarea>
-        </div>
-        <p *ngIf="form.get('description').touched && form.get('description').invalid" class="error-message">Description
-            can't be longer than 750
-            symbols!</p>
-
-        <input [class.disabled]="formLoading || form.invalid" [disabled]="formLoading || form.invalid" class="submit"
-            type="submit" value="Submit">
-
-        <ng-container *ngIf="formLoading">
-            <app-loading></app-loading>
-        </ng-container>
-    </form>
+    <app-edit-car *ngIf="inEditForm" [currentCar]="currentCar" (onHideEditForm)="toggleEditForm()"
+        (onEdited)="saveEdited($event)"></app-edit-car>
 </div>

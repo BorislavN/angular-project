@@ -13,7 +13,8 @@ import { CarService } from '../car.service';
 })
 export class CarDetailsComponent implements OnInit {
   isLoading: boolean;
-  isDeleting:boolean;
+  isDeleting: boolean;
+  inEditForm: boolean;
   inForm: boolean;
   formLoading: boolean;
   currentCar: ICar;
@@ -24,13 +25,14 @@ export class CarDetailsComponent implements OnInit {
     this.isLoading = true;
     this.isDeleting = false;
     this.formLoading = false;
+    this.inEditForm = false;
     this.inForm = false;
 
     this.form = this.builder.group({
       price: ["", [Validators.required, Validators.min(100), Validators.max(5000000)]],
       description: ["", [Validators.maxLength(750)]]
     });
-  }
+  };
 
   ngOnInit(): void {
     this.titleService.setTitle("Car Details");
@@ -46,11 +48,11 @@ export class CarDetailsComponent implements OnInit {
         this.router.navigate(['/error'], { queryParams: { error: err.error.message } })
       }
     });
-  }
+  };
 
   toggleForm() {
     this.inForm = !(this.inForm);
-  }
+  };
 
   submitFormHandler(): void {
     this.formLoading = true;
@@ -64,10 +66,10 @@ export class CarDetailsComponent implements OnInit {
         this.router.navigate(['/error'], { queryParams: { error: (err?.error?.message || err.message) } })
       }
     });
-  }
+  };
 
   deleteHandler(): void {
-    this.isDeleting=true;
+    this.isDeleting = true;
 
     this.carService.deleteCar("sex").subscribe({
       next: (result) => {
@@ -77,5 +79,19 @@ export class CarDetailsComponent implements OnInit {
         this.router.navigate(['/error'], { queryParams: { error: err.error.message } });
       }
     });
-  }
+  };
+
+  toggleEditForm(): void {
+    this.inEditForm = !(this.inEditForm);
+    if(!this.inEditForm){
+      this.titleService.setTitle("Car Details");
+    }
+  };
+
+  saveEdited(data: ICar): void {
+    this.currentCar = data;
+    this.imgUrl = parseUrl(this.currentCar.pictures[0]);
+    this.titleService.setTitle("Car Details");
+    this.inEditForm = false;
+  };
 }

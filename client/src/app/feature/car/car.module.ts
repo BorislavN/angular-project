@@ -8,9 +8,10 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { CollectionComponent } from './collection/collection.component';
 import { CollectionItemComponent } from './collection-item/collection-item.component';
 import { CarDetailsComponent } from './car-details/car-details.component';
+import { EditCarComponent } from './edit-car/edit-car.component';
 
 @NgModule({
-  declarations: [AddCarComponent, CollectionComponent, CollectionItemComponent, CarDetailsComponent],
+  declarations: [AddCarComponent, CollectionComponent, CollectionItemComponent, CarDetailsComponent, EditCarComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

@@ -61,7 +61,7 @@ function editCar(req, res, next) {
         })
         .then(([updatedCar]) => {
             res.status(200)
-                .send({ "message": `Car(make: ${updatedCar.make}, year: ${updatedCar.year}, miles: ${updatedCar.miles}) updated successfully!` });
+                .send(updatedCar);
         })
         .catch(next);
 };
