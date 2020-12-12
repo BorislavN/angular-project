@@ -33,7 +33,7 @@ export class EditCarComponent implements OnInit {
     this.titleService.setTitle("Edit Car");
 
     this.form = this.builder.group({
-      make: [this.currentCar.make, [Validators.required, Validators.minLength(1), Validators.maxLength(10)]],
+      make: [this.currentCar.make, [Validators.required, Validators.minLength(1), Validators.maxLength(20)]],
       model: [this.currentCar.model, [Validators.required, Validators.minLength(1), Validators.maxLength(20)]],
       year: [this.currentCar.year, [Validators.required, Validators.min(1910), Validators.max(this.currentYear)]],
       miles: [this.currentCar.miles, [Validators.required, Validators.min(0), Validators.max(500000)]],

@@ -2,8 +2,8 @@ const { body } = require('express-validator');
 
 const makeValidation = body("make")
     .trim()
-    .isLength({ min: 1, max: 10 })
-    .withMessage("Car make must be between 1 and 10 symbols!");
+    .isLength({ min: 1, max: 20 })
+    .withMessage("Car make must be between 1 and 20 symbols!");
 
 const modelValidation = body("model")
     .trim()

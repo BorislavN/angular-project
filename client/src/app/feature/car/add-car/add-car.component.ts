@@ -25,7 +25,7 @@ export class AddCarComponent implements OnInit {
     this.isLoading = false;
 
     this.form = this.builder.group({
-      make: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(10)]],
+      make: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(20)]],
       model: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(20)]],
       year: [undefined, [Validators.required, Validators.min(1910), Validators.max(this.currentYear)]],
       miles: [undefined, [Validators.required, Validators.min(0), Validators.max(500000)]],

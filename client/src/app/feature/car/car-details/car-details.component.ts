@@ -71,7 +71,7 @@ export class CarDetailsComponent implements OnInit {
   deleteHandler(): void {
     this.isDeleting = true;
 
-    this.carService.deleteCar("sex").subscribe({
+    this.carService.deleteCar(this.currentCar._id).subscribe({
       next: (result) => {
         this.router.navigate(['/user/collection']);
       },

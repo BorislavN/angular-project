@@ -11,7 +11,7 @@
             <label [class.error-label]="form.get('make').touched && form.get('make').invalid" for="make">Make:</label>
             <input type="text" id="make" name="make" placeholder="Enter car make" formControlName="make">
         </div>
-        <p *ngIf="form.get('make').invalid&&form.get('make').touched" class="error-message">Make should be 1-10 symbols!
+        <p *ngIf="form.get('make').invalid&&form.get('make').touched" class="error-message">Make should be 1-20 symbols!
         </p>
         <div class="form-group">
             <label [class.error-label]="form.get('model').touched && form.get('model').invalid"
