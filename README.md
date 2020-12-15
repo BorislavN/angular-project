@@ -36,7 +36,7 @@ The expired tokens are cleaned by a Cron job every 12 hours.
 - Offer Comments page  
 - Edit Car page  
 
-## 4.Dynamic pages  
+### Dynamic pages  
 - Collection page - made with flex-box, data is sorted by forSale property  
 - Car Details page - includes car info, edit car menu, sell car menu, delete car functionality  
 - My Offers page - made with flex-box, displays all active offers for the current user ordered descending by date of creation  
