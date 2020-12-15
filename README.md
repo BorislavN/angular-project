@@ -45,5 +45,5 @@ The expired tokens are cleaned by a Cron job every 12 hours.
 - Offer Comments page - shows all comments (most recent first) for the current offer, add comment functionality  
 - Profile page - displays user info, has transfer money menu, edit menu  
 
-## 5.Bonuses  
+## 4.Bonuses  
 I think my Cloudinary picture upload counts as a bonus - Use a file storage cloud API, e.g. Dropbox, Google Drive or other for storing the files.  
