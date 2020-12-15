@@ -12,7 +12,7 @@ I'm using JWT tokens for authentication.
 When the user logouts his token is saved to a Blacklist collection in Mongo.  
 The expired tokens are cleaned by a Cron job every 12 hours.
 
-## 3.About the Angular client  
+## 3.About the Angular client.  
 ### Overall functionality and pages:  
 - Home page - has different content for anonymous and authenticated users  
 - Login page - has validations  
@@ -36,7 +36,7 @@ The expired tokens are cleaned by a Cron job every 12 hours.
 - Offer Comments page  
 - Edit Car page  
 
-### Dynamic pages  
+### Dynamic pages:  
 - Collection page - made with flex-box, data is sorted by forSale property  
 - Car Details page - includes car info, edit car menu, sell car menu, delete car functionality  
 - My Offers page - made with flex-box, displays all active offers for the current user ordered descending by date of creation  
@@ -45,12 +45,12 @@ The expired tokens are cleaned by a Cron job every 12 hours.
 - Offer Comments page - shows all comments (most recent first) for the current offer, add comment functionality  
 - Profile page - displays user info, has transfer money menu, edit menu  
 
-### Static pages  
+### Static pages:  
 - Home page  
 - Register page  
 - Login page  
 - Add Car page  
 - Error page  
 
-## 4.Bonuses  
+## 4.Bonuses.  
 I think my Cloudinary picture upload counts as a bonus - Use a file storage cloud API, e.g. Dropbox, Google Drive or other for storing the files.  
