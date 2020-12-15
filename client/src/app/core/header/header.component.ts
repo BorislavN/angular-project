@@ -8,20 +8,29 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  get isLogged(): boolean { return this.authService.isLogged }
+  get isLogged(): boolean { return this.authService.isLogged };
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) { };
+
+  isInCollectionPage(): boolean {
+    const url = this.router.url;
+
+    const notAddPage = "/collection/add" !== url;
+    const isInCollectionRoute = (url.includes("/collection"));
+
+    return notAddPage && isInCollectionRoute;
+  }
 
   handleLogout(): void {
-    if(!this.authService.isLogged){
-      this.router.navigate(['/error'],{queryParams:{error:`You can\'t logout if you are not logged in ;D!`}});
+    if (!this.authService.isLogged) {
+      this.router.navigate(['/error'], { queryParams: { error: `You can\'t logout if you are not logged in ;D!` } });
     }
     this.authService.logout().subscribe({
       next: (data) => {
         this.router.navigateByUrl("/");
       },
       error: (err) => {
-        this.router.navigate(['/error'],{queryParams:{error:err.error.message}});
+        this.router.navigate(['/error'], { queryParams: { error: err.error.message } });
       }
     })
   }
