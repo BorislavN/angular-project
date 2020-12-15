@@ -36,5 +36,14 @@ The expired tokens are cleaned by a Cron job every 12 hours.
 - Offer Comments page  
 - Edit Car page  
 
-## 4.Bonuses  
+## 4.Dynamic pages  
+- Collection page - made with flex-box, data is sorted by forSale property  
+- Car Details page - includes car info, edit car menu, sell car menu, delete car functionality  
+- My Offers page - made with flex-box, displays all active offers for the current user ordered descending by date of creation  
+- Offers page - made with flex-box, offers ordered descending by date of creation and has pagination  
+- Offer Details page - includes offer info, picture toggle by click, edit offer menu, delete offer functionality, buy car from offer functionality, link to comments page  
+- Offer Comments page - shows all comments (most recent first) for the current offer, add comment functionality  
+- Profile page - displays user info, has transfer money menu, edit menu  
+
+## 5.Bonuses  
 I think my Cloudinary picture upload counts as a bonus - Use a file storage cloud API, e.g. Dropbox, Google Drive or other for storing the files.  
