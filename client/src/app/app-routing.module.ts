@@ -6,12 +6,27 @@ import { HomeComponent } from './feature/home/home.component';
 const routes: Routes = [
   {
     path: '',
-    canActivateChild:[AuthGuard],
+    canActivateChild: [AuthGuard],
     children: [
       {
         path: '',
         pathMatch: 'full',
         component: HomeComponent,
+      },
+      {
+        path: 'user',
+        canActivateChild: [AuthGuard],
+        loadChildren: () => import('./feature/user/user.module').then(m => m.UserModule)
+      },
+      {
+        path: 'offers',
+        canActivateChild: [AuthGuard],
+        loadChildren: () => import('./feature/offer/offer.module').then(m => m.OfferModule)
+      },
+      {
+        path: 'collection',
+        canActivateChild: [AuthGuard],
+        loadChildren: () => import('./feature/car/car.module').then(m => m.CarModule)
       },
       {
         path: '**',

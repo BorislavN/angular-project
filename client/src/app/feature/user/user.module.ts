@@ -19,7 +19,7 @@ import { EditComponent } from './edit/edit.component';
     ReactiveFormsModule,
     SharedModule
   ],
-  providers:[
+  providers: [
     UserService
   ]
 })

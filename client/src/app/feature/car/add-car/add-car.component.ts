@@ -71,7 +71,7 @@ export class AddCarComponent implements OnInit {
     this.carService.addCar(formData).subscribe({
       next: (result) => {
         this.isLoading = false;
-        this.router.navigateByUrl("user/collection");
+        this.router.navigateByUrl("/collection");
       },
       error: (err) => {
         let messages = err.error?.errors || [];

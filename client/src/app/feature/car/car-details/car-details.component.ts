@@ -73,7 +73,7 @@ export class CarDetailsComponent implements OnInit {
 
     this.carService.deleteCar(this.currentCar._id).subscribe({
       next: (result) => {
-        this.router.navigate(['/user/collection']);
+        this.router.navigate(['/collection']);
       },
       error: (err) => {
         this.router.navigate(['/error'], { queryParams: { error: err.error.message } });

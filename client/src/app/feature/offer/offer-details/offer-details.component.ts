@@ -58,7 +58,7 @@ export class OfferDetailsComponent implements OnInit {
   deleteHandler(): void {
     this.offerService.deleteOffer(this.currentOffer._id, this.currentOffer.carId._id).subscribe({
       next: (result) => {
-        this.router.navigate(['/user/collection']);
+        this.router.navigate(['/collection']);
       },
       error: (err) => {
         this.router.navigate(['/error'], { queryParams: { error: err.error.message } });
@@ -69,7 +69,7 @@ export class OfferDetailsComponent implements OnInit {
   buyCarHandler(): void {
     this.offerService.buyFromOffer(this.currentOffer._id).subscribe({
       next: (result) => {
-        this.router.navigate(['/user/collection']);
+        this.router.navigate(['/collection']);
       },
       error: (err) => {
         const message = err.error.message || "Unexpected error occurred! Sorry for the inconvenience!";

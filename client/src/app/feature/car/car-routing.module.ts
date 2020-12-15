@@ -1,37 +1,30 @@
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from 'src/app/core/guard/auth.guard';
 import { AddCarComponent } from './add-car/add-car.component';
 import { CarDetailsComponent } from './car-details/car-details.component';
 import { CollectionComponent } from './collection/collection.component';
 
 const routes: Routes = [
     {
-        path: 'user/collection',
-        canActivateChild: [AuthGuard],
-        children: [
-            {
-                path: 'add',
-                component: AddCarComponent,
-                data: {
-                    isLogged: true,
-                }
-            },
-            {
-                path: '',
-                pathMatch: 'full',
-                component: CollectionComponent,
-                data: {
-                    isLogged: true,
-                }
-            },
-            {
-                path: ':id',
-                component: CarDetailsComponent,
-                data: {
-                    isLogged: true,
-                }
-            }
-        ]
+        path: 'add',
+        component: AddCarComponent,
+        data: {
+            isLogged: true,
+        }
+    },
+    {
+        path: '',
+        pathMatch: 'full',
+        component: CollectionComponent,
+        data: {
+            isLogged: true,
+        }
+    },
+    {
+        path: ':id',
+        component: CarDetailsComponent,
+        data: {
+            isLogged: true,
+        }
     }
 ];
 
