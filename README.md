@@ -13,7 +13,7 @@ When the user logouts his token is saved to a Blacklist collection in Mongo.
 The expired tokens are cleaned by a Cron job every 12 hours.
 
 ## 3.About the Angular client  
-### Current functionality and pages:  
+### Overall functionality and pages:  
 - Home page - has different content for anonymous and authenticated users  
 - Login page - has validations  
 - Register page - has validations  
@@ -44,6 +44,13 @@ The expired tokens are cleaned by a Cron job every 12 hours.
 - Offer Details page - includes offer info, picture toggle by click, edit offer menu, delete offer functionality, buy car from offer functionality, link to comments page  
 - Offer Comments page - shows all comments (most recent first) for the current offer, add comment functionality  
 - Profile page - displays user info, has transfer money menu, edit menu  
+
+### Static pages  
+- Home page  
+- Register page  
+- Login page  
+- Add Car page  
+- Error page  
 
 ## 4.Bonuses  
 I think my Cloudinary picture upload counts as a bonus - Use a file storage cloud API, e.g. Dropbox, Google Drive or other for storing the files.  
