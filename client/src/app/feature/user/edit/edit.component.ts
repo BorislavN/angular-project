@@ -48,7 +48,7 @@ export class EditComponent implements OnInit {
       error: (err) => {
         let messages = err.error?.errors || [err.error.message];
         Array.from(messages).forEach((el: any) => {
-          this.errors.push(el.msg);
+          this.errors.push(el?.msg || el);
         });
         this.editFormLoading = false;
       }

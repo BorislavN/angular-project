@@ -5,46 +5,41 @@ import { tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/core/auth.service';
 import { IOfferCard } from 'src/app/shared/interface/offer';
 import { IUser } from 'src/app/shared/interface/user';
-import { environment } from 'src/environments/environment';
-
-const authUrl = environment.authUrl;
-const apiUrl = environment.apiUrl;
-const withCredentials = { withCredentials: true };
 
 @Injectable()
 export class UserService {
     constructor(private http: HttpClient, private authService: AuthService) { }
 
     login(data: any): Observable<IUser> {
-        return this.http.post(`${authUrl}/login`, data, withCredentials).pipe(
+        return this.http.post(`/user/login`, data).pipe(
             tap((user: IUser) => this.authService.currentUser = user)
         );
     }
 
     register(data: any): Observable<IUser> {
-        return this.http.post<IUser>(`${authUrl}/register`, data, withCredentials);
+        return this.http.post<IUser>(`/user/register`, data);
     }
 
     updateProfile(data: any): Observable<IUser> {
-        return this.http.put(`${authUrl}/profile`, data, withCredentials).pipe(
+        return this.http.put(`/user/profile`, data).pipe(
             tap((user: IUser) => this.authService.currentUser = user)
         );
     }
 
-    deposit(data: {transaction:number}): Observable<IUser> {
-        return this.http.post(`${authUrl}/balance`, data, withCredentials).pipe(
+    deposit(data: { transaction: number }): Observable<IUser> {
+        return this.http.post(`/user/balance`, data).pipe(
             tap((user: IUser) => this.authService.currentUser = user)
         );
     }
 
-    withdraw(data:  {transaction:number}): Observable<IUser> {
-        return this.http.put(`${authUrl}/balance`,data, withCredentials).pipe(
+    withdraw(data: { transaction: number }): Observable<IUser> {
+        return this.http.put(`/user/balance`, data).pipe(
             tap((user: IUser) => this.authService.currentUser = user)
         );
     }
 
     getMyOffers(): Observable<IOfferCard[]> {
-        return this.http.get<IOfferCard[]>(`${apiUrl}/users/offers`, withCredentials);
+        return this.http.get<IOfferCard[]>(`/users/offers`);
     }
 
     getCurrentUser(): IUser {

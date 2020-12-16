@@ -1,12 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { IUser } from '../shared/interface/user';
 import { catchError, tap } from 'rxjs/operators';
-
-const authUrl = environment.authUrl;
-const credentials = { withCredentials: true };
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +15,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   authenticate(): Observable<IUser | null> {
-    return this.http.get<IUser>(`${authUrl}/profile`, credentials).pipe(
+    return this.http.get<IUser>(`/user/profile`).pipe(
       tap((result: IUser) => {
         this.currentUser = result;
       }),
@@ -31,7 +27,7 @@ export class AuthService {
   };
 
   logout(): Observable<any> {
-    return this.http.post(`${authUrl}/logout`, {}, credentials).pipe(
+    return this.http.post(`/user/logout`, {}).pipe(
       tap(() => this.currentUser = null)
     );
   }
