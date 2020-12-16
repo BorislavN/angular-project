@@ -24,9 +24,6 @@ export function picturesValidator(min: number) {
         const isOneToThree = (arr.length >= min && arr.length <= 3);
         const isRightExtension = resultArrSize === arr.length;
 
-        console.log("length ",arr.length);
-        
-
         return (isOneToThree && isRightExtension) ? null : { picturesValidator: true };
     };
 };

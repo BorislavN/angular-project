@@ -35,12 +35,12 @@
                     </div>
                     <p class="description">{{currentOffer.description||"No description"}}</p>
                     <div class="buttons">
-                        <ng-container *ngIf="isOwner">
+                        <ng-container *ngIf="(isOwner$ | async)">
                             <button (click)="showForm()">Edit</button>
                             <button (click)="deleteHandler()">Delete</button>
                         </ng-container>
-                        <button *ngIf="(!isOwner&& userLoggedIn)" [class.no-money]="notEnoughMoney"
-                            (click)="buyCarHandler()">Buy</button>
+                        <button *ngIf="(!(isOwner$ | async)&& (userLoggedIn$ | async))"
+                            [class.no-money]="notEnoughMoney" (click)="buyCarHandler()">Buy</button>
                         <button (click)="navigateToComments()">Comments</button>
                     </div>
                 </section>

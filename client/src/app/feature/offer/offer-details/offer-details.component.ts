@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/core/auth.service';
 import { IOffer } from 'src/app/shared/interface/offer-details';
 import { parseUrl } from 'src/app/shared/util/url.parser';
@@ -15,16 +17,14 @@ export class OfferDetailsComponent implements OnInit {
   isInEditForm: boolean;
   isLoading: boolean;
   notEnoughMoney: boolean;
-  isOwner: boolean;
-  userLoggedIn: boolean;
+  isOwner$: Observable<boolean>;
+  userLoggedIn$: Observable<boolean>;
   currentOffer: IOffer;
   mainPictureUrl: String;
 
   constructor(private route: ActivatedRoute, private authService: AuthService,
     private offerService: OfferService, private router: Router, private titleService: Title) {
     this.isLoading = true;
-    this.isOwner = false;
-    this.userLoggedIn = false;
     this.notEnoughMoney = false;
     this.isInEditForm = false;
   }
@@ -32,12 +32,12 @@ export class OfferDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.titleService.setTitle("Offer Details");
     const offerId = this.route.snapshot.params['id'];
-    this.userLoggedIn = this.authService.isLogged;
+    this.userLoggedIn$ = this.authService.isLogged$;
 
     this.offerService.getOfferDetails(offerId).subscribe({
       next: (result) => {
         this.currentOffer = result;
-        this.isOwner = (result.authorId.username === (this.authService?.currentUser?.username || ""));
+        this.isOwner$ = this.authService.currentUser$.pipe(map((user) => (result.authorId.username === (user?.username || ""))));
         this.mainPictureUrl = parseUrl(result.carId.pictures[0]);
         this.isLoading = false;
       },
@@ -102,7 +102,7 @@ export class OfferDetailsComponent implements OnInit {
     this.currentOffer.description = data.description;
   }
 
-  navigateToComments():void{
-    this.router.navigate(['/offers',this.currentOffer._id,'comments']);
+  navigateToComments(): void {
+    this.router.navigate(['/offers', this.currentOffer._id, 'comments']);
   }
 }

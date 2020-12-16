@@ -17,7 +17,7 @@ export class ProfileComponent implements OnInit {
   showEditForm: boolean;
   tooBig: boolean;
   formLoading: boolean;
-  currentUser: IUser;
+  currentUser$: Observable<IUser>;
   form: FormGroup;
 
   constructor(private userService: UserService, private titleService: Title, private builder: FormBuilder, private router: Router) {
@@ -35,7 +35,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading = false;
     this.titleService.setTitle("Profile");
-    this.currentUser = this.userService.getCurrentUser();
+    this.currentUser$ = this.userService.getCurrentUser();
   }
 
   toggleForm(): void {
@@ -47,7 +47,6 @@ export class ProfileComponent implements OnInit {
       next: (result) => {
         this.inForm = false;
         this.formLoading = false;
-        this.currentUser = result;
         this.form.get("transaction").reset();
       },
       error: (err) => {
@@ -56,7 +55,7 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  submitFormHandler(): void {
+  submitFormHandler(balance: number): void {
     this.formLoading = true;
     this.tooBig = false;
 
@@ -66,7 +65,7 @@ export class ProfileComponent implements OnInit {
       this.transfer(this.userService.deposit({ transaction }));
 
     } else {
-      if (transaction > this.currentUser.balance) {
+      if (transaction > +balance) {
         this.tooBig = true;
         this.formLoading = false;
 
@@ -86,8 +85,8 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  updateProfileData(data: { "username": String, "email": String }): void {
-    this.currentUser.username = data.username;
-    this.currentUser.email = data.email;
-  }
+  // updateProfileData(data: { "username": String, "email": String }): void {
+  //   this.currentUser.username = data.username;
+  //   this.currentUser.email = data.email;
+  // }
 }

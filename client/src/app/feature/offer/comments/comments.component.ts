@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/core/auth.service';
 import { IComment } from 'src/app/shared/interface/comment';
 import { CommentService } from '../comment.service';
@@ -16,7 +17,7 @@ export class CommentsComponent implements OnInit {
   form: FormGroup;
   comments: IComment[];
   isLoading: boolean;
-  hasUser: boolean;
+  hasUser$: Observable<boolean>;
 
   constructor(private authService: AuthService,
     private commentService: CommentService,
@@ -26,7 +27,7 @@ export class CommentsComponent implements OnInit {
     private builder: FormBuilder) {
 
     this.isLoading = false;
-    this.hasUser = this.authService.isLogged;
+    this.hasUser$ = this.authService.isLogged$;
 
     this.form = this.builder.group({
       text: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(500)]]

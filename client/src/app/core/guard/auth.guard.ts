@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { first, map, switchMap, tap } from 'rxjs/operators';
 import { IUser } from 'src/app/shared/interface/user';
 import { AuthService } from '../auth.service';
 
@@ -14,25 +14,18 @@ export class AuthGuard implements CanActivateChild {
 
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     let routeCondition = childRoute.data.isLogged;
-    let stream$: Observable<IUser | null>;
 
-    if (this.authService.currentUser === undefined) {
-      stream$ = this.authService.authenticate();
-    } else {
-      stream$ = of(this.authService.currentUser);
-    }
-
-    return stream$.pipe(
-      map((result: IUser | null) => {
-        let isLogged = !!result?.username ? true : false;
-        
-        return (typeof routeCondition !== "boolean" || routeCondition === isLogged);
+    return this.authService.currentUser$.pipe(
+      switchMap(user => user === undefined ? this.authService.authenticate() : [user]),
+      map((user) => {
+        return (typeof routeCondition !== 'boolean') || (routeCondition === !!user);
       }),
       tap((flag) => {
         if (!flag) {
           this.router?.navigateByUrl(this.router.url);
         }
-      })
+      }),
+      first()
     );
   }
 }

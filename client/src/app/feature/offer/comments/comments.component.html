@@ -12,8 +12,8 @@
     <form [formGroup]="form" (ngSubmit)="submitFormHandler()" class="comment">
         <label for="text" style="display: none;">Empty</label>
         <input id="text" name="text" class="text" type="text" placeholder="Enter text between 1 and 500 symbols and don't forget to login :)" formControlName="text">
-        <input [class.disabled]="(isLoading || form.invalid || !hasUser)"
-            [disabled]="(isLoading || form.invalid || !hasUser)" class="button" type="submit" value="Send">
+        <input [class.disabled]="(isLoading || form.invalid || !(hasUser$ | async))"
+            [disabled]="(isLoading || form.invalid || !(hasUser$ | async))" class="button" type="submit" value="Send">
     </form>
 
 </div>

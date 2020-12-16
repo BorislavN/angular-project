@@ -12,7 +12,7 @@ export class UserService {
 
     login(data: any): Observable<IUser> {
         return this.http.post(`/user/login`, data).pipe(
-            tap((user: IUser) => this.authService.currentUser = user)
+            tap((user: IUser) => this.authService.setCurrentUser(user))
         );
     }
 
@@ -22,19 +22,19 @@ export class UserService {
 
     updateProfile(data: any): Observable<IUser> {
         return this.http.put(`/user/profile`, data).pipe(
-            tap((user: IUser) => this.authService.currentUser = user)
+            tap((user: IUser) => this.authService.setCurrentUser(user))
         );
     }
 
     deposit(data: { transaction: number }): Observable<IUser> {
         return this.http.post(`/user/balance`, data).pipe(
-            tap((user: IUser) => this.authService.currentUser = user)
+            tap((user: IUser) => this.authService.setCurrentUser(user))
         );
     }
 
     withdraw(data: { transaction: number }): Observable<IUser> {
         return this.http.put(`/user/balance`, data).pipe(
-            tap((user: IUser) => this.authService.currentUser = user)
+            tap((user: IUser) => this.authService.setCurrentUser(user))
         );
     }
 
@@ -42,7 +42,7 @@ export class UserService {
         return this.http.get<IOfferCard[]>(`/users/offers`);
     }
 
-    getCurrentUser(): IUser {
-        return this.authService.currentUser;
+    getCurrentUser(): Observable<IUser | null | undefined> {
+        return this.authService.currentUser$;
     }
 };

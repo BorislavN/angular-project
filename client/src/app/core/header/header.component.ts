@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  get isLogged(): boolean { return this.authService.isLogged };
+  get isLogged$(): Observable<boolean> { return this.authService.isLogged$ };
 
   constructor(private authService: AuthService, private router: Router) { };
 
@@ -22,9 +23,6 @@ export class HeaderComponent {
   }
 
   handleLogout(): void {
-    if (!this.authService.isLogged) {
-      this.router.navigate(['/error'], { queryParams: { error: `You can\'t logout if you are not logged in ;D!` } });
-    }
     this.authService.logout().subscribe({
       next: (data) => {
         this.router.navigateByUrl("/");

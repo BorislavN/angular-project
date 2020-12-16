@@ -4,9 +4,9 @@
 <article *ngIf="!isLoading&&!showEditForm" class="profile">
     <section class="info">
         <h3>Profile Info:</h3>
-        <p>Username: {{currentUser.username}}</p>
-        <p>Email: {{currentUser.email}}</p>
-        <p>Balance: {{currentUser.balance.toFixed(2)}}$</p>
+        <p>Username: {{(currentUser$ | async).username}}</p>
+        <p>Email: {{(currentUser$ | async).email}}</p>
+        <p #balance [attr.data-balance]="(currentUser$ | async).balance" >Balance: {{((currentUser$ | async).balance).toFixed(2)}}$</p>
     </section>
     <section class="buttons">
         <ng-container *ngIf="!inForm">
@@ -14,7 +14,7 @@
             <button (click)="toggleForm()">Transfer Money</button>
         </ng-container>
 
-        <form *ngIf="inForm" class="none" [formGroup]="form" (ngSubmit)="submitFormHandler()">
+        <form *ngIf="inForm" class="none" [formGroup]="form" (ngSubmit)="submitFormHandler(balance.getAttribute('data-balance'))">
             <h3>Transfer Funds</h3>
             <input (click)="toggleForm()" type="button" class="submit" value="Hide Menu">
             <div class="form-group">
@@ -48,6 +48,9 @@
 </article>
 
 <div *ngIf="showEditForm" style="margin: 50px auto;text-align: center;">
-    <app-edit [info]="currentUser" (onCloseForm)="hideEditForm($event)" (onEditedData)="updateProfileData($event)">
+    <app-edit [info]="(currentUser$ | async)" (onCloseForm)="hideEditForm($event)">
     </app-edit>
+
+    <!-- <app-edit [info]="currentUser" (onCloseForm)="hideEditForm($event)" (onEditedData)="updateProfileData($event)">
+    </app-edit> -->
 </div>

@@ -14,7 +14,7 @@ export class EditComponent implements OnInit {
   errors: String[];
   @Input("info") user: IUser;
   @Output() onCloseForm = new EventEmitter<boolean>();
-  @Output() onEditedData = new EventEmitter<{ username: String, email: String }>();
+  // @Output() onEditedData = new EventEmitter<{ username: String, email: String }>();
 
   constructor(private userService: UserService, private builder: FormBuilder) {
     this.editFormLoading = false;
@@ -25,9 +25,9 @@ export class EditComponent implements OnInit {
     this.onCloseForm.emit(true);
   }
 
-  private sendEditedData(data: { username: String, email: String }): void {
-    this.onEditedData.emit(data);
-  }
+  // private sendEditedData(data: { username: String, email: String }): void {
+  //   this.onEditedData.emit(data);
+  // }
 
   ngOnInit(): void {
     this.form = this.builder.group({
@@ -42,7 +42,7 @@ export class EditComponent implements OnInit {
     this.userService.updateProfile(this.form.value).subscribe({
       next: (result) => {
         this.editFormLoading = false;
-        this.sendEditedData({ "username": result.username, "email": result.email });
+        // this.sendEditedData({ "username": result.username, "email": result.email });
         this.toggleForm();
       },
       error: (err) => {

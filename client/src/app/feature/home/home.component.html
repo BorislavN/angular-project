@@ -1,4 +1,4 @@
-<div *ngIf="!isLogged" class="container main">
+<div *ngIf="!(isLogged$ | async)" class="container main">
     <article>
         <h2>Welcome to Car Shop</h2>
         <p>This is the biggest car e-market on the Balkans. Here you can find anything from VW Golf 2, the
@@ -13,8 +13,8 @@
     </article>
 </div>
 
-<div *ngIf="isLogged" class="container home-logged">
-    <h2>Hello, {{username}}!</h2>
+<div *ngIf="(isLogged$ | async)" class="container home-logged">
+    <h2>Hello, {{(username$ | async)}}!</h2>
     <p>Here is a quick guide of what can you do:</p>
     <ul class="options">
         <li>go to Offers page to view all offers.</li>
