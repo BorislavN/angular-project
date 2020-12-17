@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ICar } from 'src/app/shared/interface/car-details';
 import { parseUrl } from 'src/app/shared/util/url.parser';
 import { CarService } from '../car.service';
@@ -14,24 +13,16 @@ import { CarService } from '../car.service';
 export class CarDetailsComponent implements OnInit {
   isLoading: boolean;
   isDeleting: boolean;
+  inSellForm: boolean;
   inEditForm: boolean;
-  inForm: boolean;
-  formLoading: boolean;
   currentCar: ICar;
   imgUrl: String;
-  form: FormGroup;
 
-  constructor(private route: ActivatedRoute, private router: Router, private carService: CarService, private builder: FormBuilder, private titleService: Title) {
+  constructor(private route: ActivatedRoute, private router: Router, private carService: CarService, private titleService: Title) {
     this.isLoading = true;
     this.isDeleting = false;
-    this.formLoading = false;
     this.inEditForm = false;
-    this.inForm = false;
-
-    this.form = this.builder.group({
-      price: ["", [Validators.required, Validators.min(100), Validators.max(5000000)]],
-      description: ["", [Validators.maxLength(750)]]
-    });
+    this.inSellForm = false;
   };
 
   ngOnInit(): void {
@@ -50,22 +41,8 @@ export class CarDetailsComponent implements OnInit {
     });
   };
 
-  toggleForm() {
-    this.inForm = !(this.inForm);
-  };
-
-  submitFormHandler(): void {
-    this.formLoading = true;
-
-    this.carService.sellCar({ carId: this.currentCar._id, ...this.form.value }).subscribe({
-      next: (result) => {
-        this.formLoading = false;
-        this.router.navigateByUrl("user/offers");
-      },
-      error: (err) => {
-        this.router.navigate(['/error'], { queryParams: { error: (err?.error?.message || err.message) } })
-      }
-    });
+  toggleSellForm() {
+    this.inSellForm = !(this.inSellForm);
   };
 
   deleteHandler(): void {
@@ -83,7 +60,7 @@ export class CarDetailsComponent implements OnInit {
 
   toggleEditForm(): void {
     this.inEditForm = !(this.inEditForm);
-    if(!this.inEditForm){
+    if (!this.inEditForm) {
       this.titleService.setTitle("Car Details");
     }
   };

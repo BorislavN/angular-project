@@ -9,9 +9,10 @@ import { CollectionComponent } from './collection/collection.component';
 import { CollectionItemComponent } from './collection-item/collection-item.component';
 import { CarDetailsComponent } from './car-details/car-details.component';
 import { EditCarComponent } from './edit-car/edit-car.component';
+import { SellCarComponent } from './sell-car/sell-car.component';
 
 @NgModule({
-  declarations: [AddCarComponent, CollectionComponent, CollectionItemComponent, CarDetailsComponent, EditCarComponent],
+  declarations: [AddCarComponent, CollectionComponent, CollectionItemComponent, CarDetailsComponent, EditCarComponent, SellCarComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
