@@ -1,6 +1,9 @@
 <div style="margin: 30px auto;text-align: center;">
     <app-loading *ngIf="isLoading"></app-loading>
 </div>
+
+<div [attr.data]="(refreshUser$ | async)" *ngIf="!isLoading" style="display: none;"></div>
+
 <article *ngIf="!isLoading&&!showEditForm" class="profile">
     <section class="info">
         <h3>Profile Info:</h3>

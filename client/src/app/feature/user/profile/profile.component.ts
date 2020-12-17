@@ -14,6 +14,7 @@ export class ProfileComponent implements OnInit {
   showEditForm: boolean;
   showTransferMenu: boolean;
   currentUser$: Observable<IUser>;
+  refreshUser$: Observable<IUser>;
 
   constructor(private userService: UserService, private titleService: Title) {
     this.isLoading = true;
@@ -25,6 +26,7 @@ export class ProfileComponent implements OnInit {
     this.isLoading = false;
     this.titleService.setTitle("Profile");
     this.currentUser$ = this.userService.getCurrentUser();
+    this.refreshUser$ = this.userService.refreshCurrentUser();
   }
 
   toggleEditForm(): void {

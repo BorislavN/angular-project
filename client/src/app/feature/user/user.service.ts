@@ -45,4 +45,8 @@ export class UserService {
     getCurrentUser(): Observable<IUser | null | undefined> {
         return this.authService.currentUser$;
     }
+
+    refreshCurrentUser(): Observable<IUser | null> {
+        return this.authService.authenticate();
+    }
 };

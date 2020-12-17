@@ -3,7 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { IOffer } from 'src/app/shared/interface/offer-details';
-import { OfferService } from '../offer.service';
+import { OfferService } from '../service/offer.service';
 
 @Component({
   selector: 'app-offers-page',

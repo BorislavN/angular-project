@@ -2,24 +2,25 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IOffer } from 'src/app/shared/interface/offer-details';
-import { OfferService } from '../offer.service';
+import { OfferService } from '../service/offer.service';
 
 @Component({
   selector: 'app-edit',
-  templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.css']
+  templateUrl: './edit-menu.component.html',
+  styleUrls: ['./edit-menu.component.css']
 })
 export class EditComponent implements OnInit {
-  formLoading: boolean;
-  form: FormGroup;
   @Input('offer') offer: IOffer;
   @Output() onToggleForm = new EventEmitter<boolean>();
   @Output() onEditResult = new EventEmitter<{ price: number, description: string }>();
 
+  formLoading: boolean;
+  form: FormGroup;
 
   constructor(private offerService: OfferService, private router: Router, private builder: FormBuilder) {
     this.formLoading = false;
   }
+  
   ngOnInit(): void {
     this.form = this.builder.group({
       price: [this.offer.price, [Validators.required, Validators.min(100), Validators.max(5000000)]],
@@ -27,8 +28,8 @@ export class EditComponent implements OnInit {
     });
   }
 
-  toggleForm(): void {
-    this.onToggleForm.emit(true);
+  closeForm(): void {
+    this.onToggleForm.emit(false);
   }
 
   private sendEditResult(data: { price: number, description: string }): void {
@@ -42,7 +43,7 @@ export class EditComponent implements OnInit {
       next: (result) => {
         this.formLoading = false;
         this.sendEditResult(result);
-        this.toggleForm();
+        this.closeForm();
       },
       error: (err) => {
         this.router.navigate(['/error'], { queryParams: { error: (err?.error?.message) } })

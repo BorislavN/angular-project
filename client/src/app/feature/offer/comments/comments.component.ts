@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/core/auth.service';
 import { IComment } from 'src/app/shared/interface/comment';
-import { CommentService } from '../comment.service';
+import { CommentService } from '../service/comment.service';
 
 @Component({
   selector: 'app-comments',
@@ -53,5 +53,4 @@ export class CommentsComponent implements OnInit {
       }
     });
   }
-
 }

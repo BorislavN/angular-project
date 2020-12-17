@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
 import { IComment } from "src/app/shared/interface/comment";
-import { CommentService } from "./comment.service";
+import { CommentService } from "../service/comment.service";
 
 @Injectable()
 export class CommentResolver implements Resolve<IComment[]> {

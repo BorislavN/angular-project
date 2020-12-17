@@ -5,15 +5,17 @@ import { OfferRoutingModule } from './offer-routing.module';
 import { OfferDetailsComponent } from './offer-details/offer-details.component';
 import { OfferCardComponent } from './offer-card/offer-card.component';
 import { OffersPageComponent } from './offers-page/offers-page.component';
-import { OfferService } from './offer.service';
+import { OfferService } from './service/offer.service';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { EditComponent } from './edit/edit.component';
+import { EditComponent } from './edit-menu/edit-menu.component';
 import { CommentsComponent } from './comments/comments.component';
-import { CommentService } from './comment.service';
-import { CommentResolver } from './comment.resolve';
+import { CommentService } from './service/comment.service';
+import { CommentResolver } from './resolver/comment.resolve';
+import { OfferDetailsResolver } from './resolver/offer-details.resolve';
+import { ActionButtonsComponent } from './action-buttons/action-buttons.component';
 
 @NgModule({
-  declarations: [OfferDetailsComponent, OfferCardComponent, OffersPageComponent, EditComponent, CommentsComponent],
+  declarations: [OfferDetailsComponent, OfferCardComponent, OffersPageComponent, EditComponent, CommentsComponent, ActionButtonsComponent],
   imports: [
     CommonModule,
     OfferRoutingModule,
@@ -21,7 +23,7 @@ import { CommentResolver } from './comment.resolve';
     SharedModule
   ],
   providers: [
-    OfferService, CommentService, CommentResolver
+    OfferService, CommentService, CommentResolver,OfferDetailsResolver
   ]
 })
 export class OfferModule { }

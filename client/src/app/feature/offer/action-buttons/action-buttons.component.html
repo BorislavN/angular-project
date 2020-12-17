@@ -1,0 +1,9 @@
+<div class="buttons">
+    <ng-container *ngIf="isOwner">
+        <button (click)="openForm()">Edit</button>
+        <button (click)="deleteHandler()">Delete</button>
+    </ng-container>
+    <button *ngIf="(!(isOwner)&& (userLoggedIn))" [class.no-money]="notEnoughMoney"
+        (click)="buyCarHandler()">Buy</button>
+    <button (click)="navigateToComments()">Comments</button>
+</div>

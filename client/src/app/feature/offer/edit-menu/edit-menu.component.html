@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="submitFormHandler()">
-    <input (click)="toggleForm()" class="submit" type="button" value="Hide Form">
+    <input (click)="closeForm()" class="submit" type="button" value="Hide Form">
     <h3>Edit Offer</h3>
     <div class="form-group">
         <label [class.error-label]="form.get('price').touched && form.get('price').invalid"

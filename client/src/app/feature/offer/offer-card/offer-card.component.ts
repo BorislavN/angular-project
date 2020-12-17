@@ -8,12 +8,10 @@ import { parseUrl } from 'src/app/shared/util/url.parser';
   styleUrls: ['./offer-card.component.css']
 })
 export class OfferCardComponent implements OnInit {
-
   @Input("offer") offer: IOffer;
   picUrl: String;
 
   constructor() { }
-
 
   ngOnInit(): void {
     this.picUrl = parseUrl(this.offer.carId.pictures[0]);
