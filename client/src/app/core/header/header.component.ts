@@ -15,7 +15,6 @@ export class HeaderComponent {
 
   isInCollectionPage(): boolean {
     const url = this.router.url;
-
     const notAddPage = "/collection/add" !== url;
     const isInCollectionRoute = (url.includes("/collection"));
 

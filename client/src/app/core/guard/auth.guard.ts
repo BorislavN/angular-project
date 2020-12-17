@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { first, map, switchMap, tap } from 'rxjs/operators';
-import { IUser } from 'src/app/shared/interface/user';
 import { AuthService } from '../auth.service';
 
 @Injectable({
