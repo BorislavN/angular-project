@@ -6,49 +6,20 @@
         <h3>Profile Info:</h3>
         <p>Username: {{(currentUser$ | async).username}}</p>
         <p>Email: {{(currentUser$ | async).email}}</p>
-        <p #balance [attr.data-balance]="(currentUser$ | async).balance" >Balance: {{((currentUser$ | async).balance).toFixed(2)}}$</p>
+        <p>Balance: {{((currentUser$ | async).balance).toFixed(2)}}$</p>
     </section>
     <section class="buttons">
-        <ng-container *ngIf="!inForm">
+        <ng-container *ngIf="!showTransferMenu">
             <button (click)="toggleEditForm()">Edit Profile</button>
-            <button (click)="toggleForm()">Transfer Money</button>
+            <button (click)="toggleTransferMenu()">Transfer Money</button>
         </ng-container>
-
-        <form *ngIf="inForm" class="none" [formGroup]="form" (ngSubmit)="submitFormHandler(balance.getAttribute('data-balance'))">
-            <h3>Transfer Funds</h3>
-            <input (click)="toggleForm()" type="button" class="submit" value="Hide Menu">
-            <div class="form-group">
-                <label [class.error-label]="form.get('action').touched && form.get('action').invalid" for="action"><i
-                        class="fas fa-exchange-alt"></i>:</label>
-                <select name="action" id="action" formControlName="action">
-                    <option value="deposit">Deposit</option>
-                    <option value="withdraw">Withdraw</option>
-                </select>
-            </div>
-            <p *ngIf="form.get('action').invalid&&form.get('action').touched" class="error-message">Select valid
-                action!</p>
-            <div class="form-group">
-                <label [class.error-label]="form.get('transaction').touched && form.get('transaction').invalid"
-                    for="transaction"><i class="fas fa-dollar-sign"></i>:</label>
-                <input type="number" id="transaction" name="transaction" placeholder="Enter amount"
-                    formControlName="transaction">
-            </div>
-            <p *ngIf="form.get('transaction').invalid&&form.get('transaction').touched" class="error-message">Amount
-                must be 1 - 3 000 000$!</p>
-            <p *ngIf="tooBig" class="error-message">Balance not enough!</p>
-
-            <input [class.disabled]="formLoading || form.invalid " [disabled]="formLoading || form.invalid"
-                class="submit" class="submit" type="submit" value="Submit">
-
-            <ng-container *ngIf="formLoading">
-                <app-loading></app-loading>
-            </ng-container>
-        </form>
+        <app-transfer-menu *ngIf="showTransferMenu" [balance]="(currentUser$ | async).balance"
+            (onCloseTransferMenu)="toggleTransferMenu()"></app-transfer-menu>
     </section>
 </article>
 
 <div *ngIf="showEditForm" style="margin: 50px auto;text-align: center;">
-    <app-edit [info]="(currentUser$ | async)" (onCloseForm)="hideEditForm($event)">
+    <app-edit [info]="(currentUser$ | async)" (onCloseForm)="toggleEditForm()">
     </app-edit>
 
     <!-- <app-edit [info]="currentUser" (onCloseForm)="hideEditForm($event)" (onEditedData)="updateProfileData($event)">

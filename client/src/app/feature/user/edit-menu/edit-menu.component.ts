@@ -5,17 +5,17 @@ import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-edit',
-  templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.css']
+  templateUrl: './edit-menu.component.html',
+  styleUrls: ['./edit-menu.component.css']
 })
 export class EditComponent implements OnInit {
+  @Input("info") user: IUser;
+  @Output() onCloseForm = new EventEmitter<boolean>();
+
   editFormLoading: boolean;
   form: FormGroup;
   errors: String[];
-  @Input("info") user: IUser;
-  @Output() onCloseForm = new EventEmitter<boolean>();
-  // @Output() onEditedData = new EventEmitter<{ username: String, email: String }>();
-
+ 
   constructor(private userService: UserService, private builder: FormBuilder) {
     this.editFormLoading = false;
     this.errors = [];
@@ -24,10 +24,6 @@ export class EditComponent implements OnInit {
   toggleForm(): void {
     this.onCloseForm.emit(true);
   }
-
-  // private sendEditedData(data: { username: String, email: String }): void {
-  //   this.onEditedData.emit(data);
-  // }
 
   ngOnInit(): void {
     this.form = this.builder.group({
@@ -42,7 +38,6 @@ export class EditComponent implements OnInit {
     this.userService.updateProfile(this.form.value).subscribe({
       next: (result) => {
         this.editFormLoading = false;
-        // this.sendEditedData({ "username": result.username, "email": result.email });
         this.toggleForm();
       },
       error: (err) => {

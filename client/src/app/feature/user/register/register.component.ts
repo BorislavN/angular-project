@@ -46,10 +46,8 @@ export class RegisterComponent implements AfterViewInit {
         });
         this.isLoading = false;
 
-        this.form.get("password").setValue("");
-        this.form.get("password").markAsUntouched();
-        this.form.get("repeatPassword").setValue("");
-        this.form.get("repeatPassword").markAsUntouched();
+        this.form.get("password").reset();
+        this.form.get("repeatPassword").reset();
       }
     });
   };

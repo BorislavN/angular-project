@@ -1,0 +1,8 @@
+form {
+    padding: 10px 20px;
+    margin: 0px;
+}
+
+form .form-group input ,form  .form-group select {
+    width: 200px;
+}

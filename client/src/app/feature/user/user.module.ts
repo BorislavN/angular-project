@@ -8,10 +8,11 @@ import { RegisterComponent } from './register/register.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { OfferListComponent } from './offer-list/offer-list.component';
 import { ProfileComponent } from './profile/profile.component';
-import { EditComponent } from './edit/edit.component';
+import { EditComponent } from './edit-menu/edit-menu.component';
+import { TransferMenuComponent } from './transfer-menu/transfer-menu.component';
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent, OfferListComponent, ProfileComponent, EditComponent],
+  declarations: [LoginComponent, RegisterComponent, OfferListComponent, ProfileComponent, EditComponent, TransferMenuComponent],
   imports: [
     CommonModule,
     UserRoutingModule,
