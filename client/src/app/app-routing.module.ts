@@ -1,5 +1,6 @@
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './core/guard/auth.guard';
+import { LoadGuard } from './core/guard/load.guard';
 import { ErrorPageComponent } from './feature/error-page/error-page.component';
 import { HomeComponent } from './feature/home/home.component';
 
@@ -26,6 +27,7 @@ const routes: Routes = [
       {
         path: 'collection',
         canActivateChild: [AuthGuard],
+        canLoad: [LoadGuard],
         loadChildren: () => import('./feature/car/car.module').then(m => m.CarModule)
       },
       {

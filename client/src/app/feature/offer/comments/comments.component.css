@@ -107,3 +107,7 @@ form.comment .disabled{
    color:gray;
    cursor:context-menu;
 } 
+
+div.new{
+    background:linear-gradient(90deg, rgba(32,37,38,1) 0%, rgba(87,31,37,1) 31%, rgba(85,31,37,1) 73%, rgba(28,37,38,1) 100%);
+}

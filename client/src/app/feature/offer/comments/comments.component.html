@@ -2,7 +2,7 @@
     <h2>Comments:</h2>
     <section class="comment-section">
         <article *ngFor="let comment of comments" class="post">
-            <div class="info">
+            <div [class.new]="'Just now'===(comment.createdAt | dateAgo)" class="info">
                 <p>{{comment.authorId.username}}:</p>
                 <p>{{comment.createdAt | dateAgo}}</p>
             </div>
