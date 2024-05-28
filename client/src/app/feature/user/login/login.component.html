@@ -21,7 +21,9 @@
         </div>
         <input [class.disabled]="isLoading || f.invalid" [disabled]="isLoading || f.invalid" class="submit"
             type="submit" value="Submit">
-
+      
+        <div>Default username/password: borislavn</div>
+      
         <ng-container *ngIf="isLoading">
             <app-loading></app-loading>
         </ng-container>
