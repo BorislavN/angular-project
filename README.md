@@ -2,10 +2,10 @@
 
 ## 1.About the project.  
 This is my project for the Angular November 2020 course at SoftUni.  
-It represents a car e-market.  
+It represents a simple car E-Market.  
 
 ## 2.About the backend.  
-It's written on javascript using express, mongoDB and Mongoose,  
+It's written on javascript using Express, MongoDB and Mongoose,  
 Formidable - for FormData parsing, Cloudinary for file upload.  
 Incoming data is validated with express-validator.  
 I'm using JWT tokens for authentication.  
